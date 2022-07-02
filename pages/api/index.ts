@@ -36,6 +36,9 @@ const resolvers: Resolvers = {
     },
     getMaps: async (_, __, { prisma }) => {
       return prisma.map.findMany()
+    },
+    getPhotoGalleries: async (_, __, { prisma }) => {
+      return prisma.photoGallery.findMany()
     }
   },
   Mutation: {
@@ -117,7 +120,6 @@ const resolvers: Resolvers = {
           chatPopup: input.chatPopup,
           contactForm: input.contactForm,
           emailMarketing: input.emailMarketing,
-          photoGallery: input.photoGallery,
           productCatalog: input.productCatalog,
           productSearch: input.productSearch,
           videoGallery: input.videoGallery,
@@ -134,7 +136,6 @@ const resolvers: Resolvers = {
           chatPopup: input.chatPopup,
           contactForm: input.contactForm,
           emailMarketing: input.emailMarketing,
-          photoGallery: input.photoGallery,
           productCatalog: input.productCatalog,
           productSearch: input.productSearch,
           videoGallery: input.videoGallery,
@@ -188,6 +189,42 @@ const resolvers: Resolvers = {
       })
 
       return map
+    },
+    addPhotoGallery: async (_, {input}, {prisma}) => {
+      const project = await prisma.project.findUnique({
+        where: {
+          id: input.projectId
+        }
+      })
+      
+      const photoGallery = await prisma.photoGallery.upsert({
+        create: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price
+        },
+        update: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price
+        },
+        where: {
+          id_projectId: {
+            id: input.id,
+            projectId: project!.id
+          }
+        }
+      })
+
+      return photoGallery
     }
   },
   Customer: {
@@ -216,6 +253,14 @@ const resolvers: Resolvers = {
         }
       }).map()
       return map
+    },
+    photoGallery: async ({id}, _, { prisma }) => {
+      const photoGallery = await prisma.project.findUnique({
+        where: {
+          id
+        }
+      }).photoGallery()
+      return photoGallery
     }
   }
 }

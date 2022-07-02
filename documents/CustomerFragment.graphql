@@ -11,6 +11,20 @@ fragment Customer on Customer {
     websiteType
     websiteCategory
     image
+    map {
+      status
+      startDate
+      endDate
+      price
+      notes
+    }
+    photoGallery {
+      status
+      startDate
+      endDate
+      price
+      notes
+    }
   }
   functionality {
     customerId
@@ -18,7 +32,6 @@ fragment Customer on Customer {
     chatPopup
     contactForm
     emailMarketing
-    photoGallery
     productCatalog
     productSearch
     videoGallery

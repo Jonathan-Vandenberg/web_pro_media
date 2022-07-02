@@ -29,6 +29,8 @@ model Project {
   image       String?
   map         Map[]
 
+  photoGallery PhotoGallery[]
+
   websiteType     WebsiteType?
   websiteCategory WebsiteCategory? @default(AUTOMOTIVE)
 
@@ -61,6 +63,19 @@ model Functionality {
 }
 
 model Map {
+  id        String  @unique @default(uuid())
+  status    Status?
+  price     Int?
+  notes     String?
+  startDate String?
+  endDate   String?
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id])
+
+  @@id([id, projectId])
+}
+
+model PhotoGallery {
   id        String  @unique @default(uuid())
   status    Status?
   price     Int?

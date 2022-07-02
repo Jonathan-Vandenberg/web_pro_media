@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { Customer as CustomerModel, Project as ProjectModel, Functionality as FunctionalityModel, Card as CardModel, Map as MapModel } from '@prisma/client';
+import { Customer as CustomerModel, Project as ProjectModel, Functionality as FunctionalityModel, Card as CardModel, Map as MapModel, PhotoGallery as PhotoGalleryModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -68,7 +68,6 @@ export type Functionality = {
   emailMarketing: Scalars['Boolean'];
   id: Scalars['ID'];
   other?: Maybe<Scalars['String']>;
-  photoGallery: Scalars['Boolean'];
   productCatalog: Scalars['Boolean'];
   productSearch: Scalars['Boolean'];
   videoGallery: Scalars['Boolean'];
@@ -86,7 +85,6 @@ export type FunctionalityInput = {
   emailMarketing: Scalars['Boolean'];
   id: Scalars['String'];
   other?: InputMaybe<Scalars['String']>;
-  photoGallery: Scalars['Boolean'];
   productCatalog: Scalars['Boolean'];
   productSearch: Scalars['Boolean'];
   videoGallery: Scalars['Boolean'];
@@ -117,6 +115,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addFunctionality?: Maybe<Customer>;
   addMap?: Maybe<Map>;
+  addPhotoGallery?: Maybe<PhotoGallery>;
   addProject?: Maybe<Customer>;
   createCustomer?: Maybe<Customer>;
   deleteCustomer?: Maybe<Customer>;
@@ -131,6 +130,11 @@ export type MutationAddFunctionalityArgs = {
 
 export type MutationAddMapArgs = {
   input: MapInput;
+};
+
+
+export type MutationAddPhotoGalleryArgs = {
+  input: PhotoGalleryInput;
 };
 
 
@@ -153,6 +157,27 @@ export type MutationUpdateCustomerArgs = {
   input: UpdateCustomerInput;
 };
 
+export type PhotoGallery = {
+  __typename?: 'PhotoGallery';
+  endDate?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  notes?: Maybe<Scalars['String']>;
+  price: Scalars['Int'];
+  projectId: Scalars['String'];
+  startDate?: Maybe<Scalars['String']>;
+  status: Status;
+};
+
+export type PhotoGalleryInput = {
+  endDate?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  notes?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Int']>;
+  projectId: Scalars['String'];
+  startDate?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+};
+
 export type Project = {
   __typename?: 'Project';
   customerId?: Maybe<Scalars['ID']>;
@@ -160,6 +185,7 @@ export type Project = {
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   map?: Maybe<Array<Maybe<Map>>>;
+  photoGallery?: Maybe<Array<Maybe<PhotoGallery>>>;
   projectName?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['String']>;
   status?: Maybe<Status>;
@@ -173,6 +199,7 @@ export type Query = {
   getAllCustomers: Array<Customer>;
   getCustomer?: Maybe<Customer>;
   getMaps: Array<Map>;
+  getPhotoGalleries: Array<PhotoGallery>;
 };
 
 
@@ -307,6 +334,8 @@ export type ResolversTypes = {
   Map: ResolverTypeWrapper<MapModel>;
   MapInput: MapInput;
   Mutation: ResolverTypeWrapper<{}>;
+  PhotoGallery: ResolverTypeWrapper<PhotoGalleryModel>;
+  PhotoGalleryInput: PhotoGalleryInput;
   Project: ResolverTypeWrapper<ProjectModel>;
   Query: ResolverTypeWrapper<{}>;
   Status: Status;
@@ -330,6 +359,8 @@ export type ResolversParentTypes = {
   Map: MapModel;
   MapInput: MapInput;
   Mutation: {};
+  PhotoGallery: PhotoGalleryModel;
+  PhotoGalleryInput: PhotoGalleryInput;
   Project: ProjectModel;
   Query: {};
   String: Scalars['String'];
@@ -365,7 +396,6 @@ export type FunctionalityResolvers<ContextType = GraphQLContext, ParentType exte
   emailMarketing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   other?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  photoGallery?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   productCatalog?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   productSearch?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   videoGallery?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -386,10 +416,22 @@ export type MapResolvers<ContextType = GraphQLContext, ParentType extends Resolv
 export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFunctionality?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationAddFunctionalityArgs, 'input'>>;
   addMap?: Resolver<Maybe<ResolversTypes['Map']>, ParentType, ContextType, RequireFields<MutationAddMapArgs, 'input'>>;
+  addPhotoGallery?: Resolver<Maybe<ResolversTypes['PhotoGallery']>, ParentType, ContextType, RequireFields<MutationAddPhotoGalleryArgs, 'input'>>;
   addProject?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationAddProjectArgs, 'input'>>;
   createCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>;
   deleteCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, 'id'>>;
   updateCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomerArgs, 'input'>>;
+};
+
+export type PhotoGalleryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['PhotoGallery'] = ResolversParentTypes['PhotoGallery']> = {
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  projectId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProjectResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = {
@@ -398,6 +440,7 @@ export type ProjectResolvers<ContextType = GraphQLContext, ParentType extends Re
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   map?: Resolver<Maybe<Array<Maybe<ResolversTypes['Map']>>>, ParentType, ContextType>;
+  photoGallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['PhotoGallery']>>>, ParentType, ContextType>;
   projectName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Status']>, ParentType, ContextType>;
@@ -411,6 +454,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   getAllCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType>;
   getCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryGetCustomerArgs, 'id'>>;
   getMaps?: Resolver<Array<ResolversTypes['Map']>, ParentType, ContextType>;
+  getPhotoGalleries?: Resolver<Array<ResolversTypes['PhotoGallery']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = GraphQLContext> = {
@@ -419,6 +463,7 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Functionality?: FunctionalityResolvers<ContextType>;
   Map?: MapResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  PhotoGallery?: PhotoGalleryResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
@@ -452,7 +497,6 @@ export const CustomerFragmentDoc = gql`
     chatPopup
     contactForm
     emailMarketing
-    photoGallery
     productCatalog
     productSearch
     videoGallery
@@ -569,7 +613,7 @@ export type GetCustomerLazyQueryHookResult = ReturnType<typeof useGetCustomerLaz
 export type GetCustomerQueryResult = Apollo.QueryResult<GetCustomerQuery, GetCustomerQueryVariables>;
 export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null };
 
-export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, photoGallery: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null };
+export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null };
 
 export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -579,11 +623,11 @@ export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __ty
 export type GetAllCustomersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCustomersQuery = { __typename?: 'Query', getAllCustomers: Array<{ __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, photoGallery: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null }> };
+export type GetAllCustomersQuery = { __typename?: 'Query', getAllCustomers: Array<{ __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null }> };
 
 export type GetCustomerQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetCustomerQuery = { __typename?: 'Query', getCustomer?: { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, photoGallery: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null } | null };
+export type GetCustomerQuery = { __typename?: 'Query', getCustomer?: { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null } | null };

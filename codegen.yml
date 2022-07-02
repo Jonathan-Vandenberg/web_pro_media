@@ -12,6 +12,7 @@ generates:
         Functionality: "@prisma/client#Functionality"
         Card: "@prisma/client#Card"
         Map: "@prisma/client#Map"
+        PhotoGallery: "@prisma/client#PhotoGallery"
       contextType: ./pages/api/index#GraphQLContext
     plugins:
       - "typescript"

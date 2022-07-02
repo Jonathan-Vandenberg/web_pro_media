@@ -3,6 +3,7 @@ type Query {
   getAllCustomers: [Customer!]!
   getAllCards: [Card!]!
   getMaps: [Map!]!
+  getPhotoGalleries: [PhotoGallery!]!
 }
 
 type Mutation {
@@ -12,6 +13,7 @@ type Mutation {
   addProject(input: AddProjectInput!): Customer
   addFunctionality(input: FunctionalityInput!): Customer
   addMap(input: MapInput!): Map
+  addPhotoGallery(input: PhotoGalleryInput!): PhotoGallery
 }
 
 type Customer {
@@ -34,6 +36,7 @@ type Project {
   websiteCategory: WebsiteCategory
   image: String
   map: [Map]
+  photoGallery: [PhotoGallery]
 }
 
 type Card {
@@ -49,7 +52,6 @@ type Functionality {
   chatPopup: Boolean!
   contactForm: Boolean!
   emailMarketing: Boolean!
-  photoGallery: Boolean!
   productCatalog: Boolean!
   productSearch: Boolean!
   videoGallery: Boolean!
@@ -61,6 +63,16 @@ type Functionality {
 }
 
 type Map {
+  projectId: String!
+  id: String!
+  status: Status!
+  price: Int!
+  notes: String
+  startDate: String
+  endDate: String
+}
+
+type PhotoGallery {
   projectId: String!
   id: String!
   status: Status!
@@ -109,6 +121,16 @@ enum WebsiteCategory {
   OTHER
 }
 
+input PhotoGalleryInput {
+  projectId: String!
+  id: String!
+  status: Status
+  price: Int
+  notes: String
+  startDate: String
+  endDate: String
+}
+
 input MapInput {
   id: ID!
   projectId: ID!
@@ -126,7 +148,6 @@ input FunctionalityInput {
   chatPopup: Boolean!
   contactForm: Boolean!
   emailMarketing: Boolean!
-  photoGallery: Boolean!
   productCatalog: Boolean!
   productSearch: Boolean!
   videoGallery: Boolean!
