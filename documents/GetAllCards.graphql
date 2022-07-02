@@ -1,0 +1,7 @@
+# import Card from "./CardFragment"
+
+query GetAllCards {
+  getAllCards {
+    ...Card
+  }
+}

@@ -1,0 +1,5 @@
+fragment Card on Card {
+  projectName
+  status
+  image
+}

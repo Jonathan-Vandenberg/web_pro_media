@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { Customer as CustomerModel, Project as ProjectModel, Functionality as FunctionalityModel } from '@prisma/client';
+import { Customer as CustomerModel, Project as ProjectModel, Functionality as FunctionalityModel, Card as CardModel } from '@prisma/client';
 import { GraphQLContext } from './pages/api/index';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
@@ -29,6 +29,13 @@ export type AddProjectInput = {
   status: Status;
   websiteCategory: WebsiteCategory;
   websiteType: WebsiteType;
+};
+
+export type Card = {
+  __typename?: 'Card';
+  image?: Maybe<Scalars['String']>;
+  projectName: Scalars['String'];
+  status: Scalars['String'];
 };
 
 export type CreateCustomerInput = {
@@ -136,6 +143,7 @@ export type Project = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllCards: Array<Card>;
   getAllCustomers: Array<Customer>;
   getCustomer?: Maybe<Customer>;
 };
@@ -262,6 +270,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AddProjectInput: AddProjectInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Card: ResolverTypeWrapper<CardModel>;
   CreateCustomerInput: CreateCustomerInput;
   Customer: ResolverTypeWrapper<CustomerModel>;
   Functionality: ResolverTypeWrapper<FunctionalityModel>;
@@ -281,6 +290,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AddProjectInput: AddProjectInput;
   Boolean: Scalars['Boolean'];
+  Card: CardModel;
   CreateCustomerInput: CreateCustomerInput;
   Customer: CustomerModel;
   Functionality: FunctionalityModel;
@@ -291,6 +301,13 @@ export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
   UpdateCustomerInput: UpdateCustomerInput;
+};
+
+export type CardResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  projectName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CustomerResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Customer'] = ResolversParentTypes['Customer']> = {
@@ -345,11 +362,13 @@ export type ProjectResolvers<ContextType = GraphQLContext, ParentType extends Re
 };
 
 export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAllCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType>;
   getAllCustomers?: Resolver<Array<ResolversTypes['Customer']>, ParentType, ContextType>;
   getCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryGetCustomerArgs, 'id'>>;
 };
 
 export type Resolvers<ContextType = GraphQLContext> = {
+  Card?: CardResolvers<ContextType>;
   Customer?: CustomerResolvers<ContextType>;
   Functionality?: FunctionalityResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
@@ -358,6 +377,13 @@ export type Resolvers<ContextType = GraphQLContext> = {
 };
 
 
+export const CardFragmentDoc = gql`
+    fragment Card on Card {
+  projectName
+  status
+  image
+}
+    `;
 export const CustomerFragmentDoc = gql`
     fragment Customer on Customer {
   id
@@ -392,6 +418,40 @@ export const CustomerFragmentDoc = gql`
   }
 }
     `;
+export const GetAllCardsDocument = gql`
+    query GetAllCards {
+  getAllCards {
+    ...Card
+  }
+}
+    ${CardFragmentDoc}`;
+
+/**
+ * __useGetAllCardsQuery__
+ *
+ * To run a query within a React component, call `useGetAllCardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCardsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCardsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllCardsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
+      }
+export function useGetAllCardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCardsQuery, GetAllCardsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCardsQuery, GetAllCardsQueryVariables>(GetAllCardsDocument, options);
+        }
+export type GetAllCardsQueryHookResult = ReturnType<typeof useGetAllCardsQuery>;
+export type GetAllCardsLazyQueryHookResult = ReturnType<typeof useGetAllCardsLazyQuery>;
+export type GetAllCardsQueryResult = Apollo.QueryResult<GetAllCardsQuery, GetAllCardsQueryVariables>;
 export const GetAllCustomersDocument = gql`
     query GetAllCustomers {
   getAllCustomers {
@@ -461,7 +521,14 @@ export function useGetCustomerLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetCustomerQueryHookResult = ReturnType<typeof useGetCustomerQuery>;
 export type GetCustomerLazyQueryHookResult = ReturnType<typeof useGetCustomerLazyQuery>;
 export type GetCustomerQueryResult = Apollo.QueryResult<GetCustomerQuery, GetCustomerQueryVariables>;
+export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null };
+
 export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName: string, status: Status, startDate?: string | null, endDate?: string | null, websiteType: WebsiteType, websiteCategory: WebsiteCategory, image?: string | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, map: boolean, photoGallery: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, blog: boolean, blogComments: boolean, blogPosts: boolean, other?: string | null } | null> | null };
+
+export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', projectName: string, status: string, image?: string | null }> };
 
 export type GetAllCustomersQueryVariables = Exact<{ [key: string]: never; }>;
 

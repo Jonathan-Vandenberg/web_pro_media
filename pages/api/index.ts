@@ -30,6 +30,9 @@ const resolvers: Resolvers = {
     },
     getAllCustomers: async (_, __, { prisma }) => {
       return prisma.customer.findMany()
+    },
+    getAllCards: async (_, __, { prisma }) => {
+      return prisma.project.findMany()
     }
   },
   Mutation: {

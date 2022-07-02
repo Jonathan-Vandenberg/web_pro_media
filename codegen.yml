@@ -10,6 +10,7 @@ generates:
         Customer: "@prisma/client#Customer"
         Project: "@prisma/client#Project"
         Functionality: "@prisma/client#Functionality"
+        Card: "@prisma/client#Card"
       contextType: ./pages/api/index#GraphQLContext
     plugins:
       - "typescript"
