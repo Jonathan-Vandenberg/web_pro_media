@@ -1,11 +1,7 @@
-import {
-  AppstoreOutlined,
-  LineChartOutlined,
-  CoffeeOutlined,
-} from "@ant-design/icons";
+import { CoffeeOutlined, LineChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import { SetStateAction, useState } from "react";
 import { NextPage } from "next";
+import { SetStateAction, useState } from "react";
 
 const items = [
   {
@@ -48,9 +44,8 @@ const Navbar: NextPage = () => {
     <Menu
       onClick={onClick}
       selectedKeys={[current]}
-      mode="vertical"
+      mode="horizontal"
       items={items}
-      style={{ width: "15vw" }}
     />
   );
 };

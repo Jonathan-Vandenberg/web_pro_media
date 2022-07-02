@@ -18,7 +18,6 @@ fragment Customer on Customer {
     chatPopup
     contactForm
     emailMarketing
-    map
     photoGallery
     productCatalog
     productSearch

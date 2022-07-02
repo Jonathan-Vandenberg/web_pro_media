@@ -22,16 +22,17 @@ model Customer {
 
 model Project {
   id          String  @unique @default(uuid())
-  projectName String
-  status      Status  @default(NOT_STARTED)
+  projectName String?
+  status      Status? @default(NOT_STARTED)
   startDate   String?
   endDate     String?
   image       String?
+  map         Map[]
 
-  websiteType     WebsiteType
-  websiteCategory WebsiteCategory @default(AUTOMOTIVE)
+  websiteType     WebsiteType?
+  websiteCategory WebsiteCategory? @default(AUTOMOTIVE)
 
-  customer   Customer @relation(fields: [customerId], references: [id])
+  customer   Customer? @relation(fields: [customerId], references: [id])
   customerId String
 
   @@id([id, customerId])
@@ -43,7 +44,6 @@ model Functionality {
   chatPopup      Boolean @default(false)
   contactForm    Boolean @default(false)
   emailMarketing Boolean @default(false)
-  map            Boolean @default(false)
   photoGallery   Boolean @default(false)
   productCatalog Boolean @default(false)
   productSearch  Boolean @default(false)
@@ -58,6 +58,19 @@ model Functionality {
   customerId String
 
   @@id([id, customerId])
+}
+
+model Map {
+  id        String  @unique @default(uuid())
+  status    Status?
+  price     Int?
+  notes     String?
+  startDate String?
+  endDate   String?
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id])
+
+  @@id([id, projectId])
 }
 
 enum Status {

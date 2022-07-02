@@ -11,6 +11,7 @@ generates:
         Project: "@prisma/client#Project"
         Functionality: "@prisma/client#Functionality"
         Card: "@prisma/client#Card"
+        Map: "@prisma/client#Map"
       contextType: ./pages/api/index#GraphQLContext
     plugins:
       - "typescript"

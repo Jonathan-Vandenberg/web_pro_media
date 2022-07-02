@@ -2,6 +2,16 @@ type Query {
   getCustomer(id: ID!): Customer
   getAllCustomers: [Customer!]!
   getAllCards: [Card!]!
+  getMaps: [Map!]!
+}
+
+type Mutation {
+  createCustomer(input: CreateCustomerInput!): Customer
+  updateCustomer(input: UpdateCustomerInput!): Customer
+  deleteCustomer(id: ID!): Customer
+  addProject(input: AddProjectInput!): Customer
+  addFunctionality(input: FunctionalityInput!): Customer
+  addMap(input: MapInput!): Map
 }
 
 type Customer {
@@ -15,20 +25,49 @@ type Customer {
 
 type Project {
   id: ID!
-  projectName: String!
-  customerId: ID!
-  status: Status!
+  projectName: String
+  customerId: ID
+  status: Status
   startDate: String
   endDate: String
-  websiteType: WebsiteType!
-  websiteCategory: WebsiteCategory!
+  websiteType: WebsiteType
+  websiteCategory: WebsiteCategory
   image: String
+  map: [Map]
 }
 
 type Card {
   projectName: String!
   status: String!
   image: String
+}
+
+type Functionality {
+  id: ID!
+  customerId: ID!
+  calender: Boolean!
+  chatPopup: Boolean!
+  contactForm: Boolean!
+  emailMarketing: Boolean!
+  photoGallery: Boolean!
+  productCatalog: Boolean!
+  productSearch: Boolean!
+  videoGallery: Boolean!
+  api: Boolean!
+  blog: Boolean!
+  blogComments: Boolean!
+  blogPosts: Boolean!
+  other: String
+}
+
+type Map {
+  projectId: String!
+  id: String!
+  status: Status!
+  price: Int!
+  notes: String
+  startDate: String
+  endDate: String
 }
 
 enum Status {
@@ -70,23 +109,14 @@ enum WebsiteCategory {
   OTHER
 }
 
-type Functionality {
+input MapInput {
   id: ID!
-  customerId: ID!
-  calender: Boolean!
-  chatPopup: Boolean!
-  contactForm: Boolean!
-  emailMarketing: Boolean!
-  map: Boolean!
-  photoGallery: Boolean!
-  productCatalog: Boolean!
-  productSearch: Boolean!
-  videoGallery: Boolean!
-  api: Boolean!
-  blog: Boolean!
-  blogComments: Boolean!
-  blogPosts: Boolean!
-  other: String
+  projectId: ID!
+  status: Status
+  price: Int
+  notes: String
+  startDate: String
+  endDate: String
 }
 
 input FunctionalityInput {
@@ -96,7 +126,6 @@ input FunctionalityInput {
   chatPopup: Boolean!
   contactForm: Boolean!
   emailMarketing: Boolean!
-  map: Boolean!
   photoGallery: Boolean!
   productCatalog: Boolean!
   productSearch: Boolean!
@@ -106,14 +135,6 @@ input FunctionalityInput {
   blogComments: Boolean!
   blogPosts: Boolean!
   other: String
-}
-
-type Mutation {
-  createCustomer(input: CreateCustomerInput!): Customer
-  updateCustomer(input: UpdateCustomerInput!): Customer
-  deleteCustomer(id: ID!): Customer
-  addProject(input: AddProjectInput!): Customer
-  addFunctionality(input: FunctionalityInput!): Customer
 }
 
 input UpdateCustomerInput {
@@ -131,13 +152,13 @@ input CreateCustomerInput {
 }
 
 input AddProjectInput {
-  projectName: String!
+  projectName: String
   customerId: String!
   id: String!
-  status: Status!
+  status: Status
   startDate: String
   endDate: String
-  websiteType: WebsiteType!
-  websiteCategory: WebsiteCategory!
+  websiteType: WebsiteType
+  websiteCategory: WebsiteCategory
   image: String
 }

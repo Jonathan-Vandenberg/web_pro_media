@@ -33,6 +33,9 @@ const resolvers: Resolvers = {
     },
     getAllCards: async (_, __, { prisma }) => {
       return prisma.project.findMany()
+    },
+    getMaps: async (_, __, { prisma }) => {
+      return prisma.map.findMany()
     }
   },
   Mutation: {
@@ -105,7 +108,7 @@ const resolvers: Resolvers = {
     },
     addFunctionality: async (_, {input}, {prisma}) => {
       const customer = await findOrCreateCustomer(prisma, input.customerId)
-
+      
       await prisma.functionality.upsert({
         create: {
           id: input.id,
@@ -114,7 +117,6 @@ const resolvers: Resolvers = {
           chatPopup: input.chatPopup,
           contactForm: input.contactForm,
           emailMarketing: input.emailMarketing,
-          map: input.map,
           photoGallery: input.photoGallery,
           productCatalog: input.productCatalog,
           productSearch: input.productSearch,
@@ -132,7 +134,6 @@ const resolvers: Resolvers = {
           chatPopup: input.chatPopup,
           contactForm: input.contactForm,
           emailMarketing: input.emailMarketing,
-          map: input.map,
           photoGallery: input.photoGallery,
           productCatalog: input.productCatalog,
           productSearch: input.productSearch,
@@ -151,6 +152,42 @@ const resolvers: Resolvers = {
         }
       })
       return customer
+    },
+    addMap: async (_, {input}, {prisma}) => {
+      const project = await prisma.project.findUnique({
+        where: {
+          id: input.projectId
+        }
+      })
+      
+      const map = await prisma.map.upsert({
+        create: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price
+        },
+        update: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price
+        },
+        where: {
+          id_projectId: {
+            id: input.id,
+            projectId: project!.id
+          }
+        }
+      })
+
+      return map
     }
   },
   Customer: {
@@ -169,6 +206,16 @@ const resolvers: Resolvers = {
         }
       }).functionality()
       return functionality
+    }
+  },
+  Project: {
+    map: async ({id}, _, { prisma }) => {
+      const map = await prisma.project.findUnique({
+        where: {
+          id
+        }
+      }).map()
+      return map
     }
   }
 }
