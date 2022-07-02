@@ -25,6 +25,15 @@ fragment Customer on Customer {
       price
       notes
     }
+    blog {
+      status
+      startDate
+      endDate
+      price
+      notes
+      commentSection
+      socialSharing
+    }
   }
   functionality {
     customerId
@@ -36,9 +45,6 @@ fragment Customer on Customer {
     productSearch
     videoGallery
     api
-    blog
-    blogComments
-    blogPosts
     other
   }
 }

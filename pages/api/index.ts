@@ -124,9 +124,6 @@ const resolvers: Resolvers = {
           productSearch: input.productSearch,
           videoGallery: input.videoGallery,
           api: input.api,
-          blog: input.blog,
-          blogComments: input.blogComments,
-          blogPosts: input.blogPosts,
           other: input.other
         },
         update: {
@@ -140,9 +137,6 @@ const resolvers: Resolvers = {
           productSearch: input.productSearch,
           videoGallery: input.videoGallery,
           api: input.api,
-          blog: input.blog,
-          blogComments: input.blogComments,
-          blogPosts: input.blogPosts,
           other: input.other
         },
         where: {
@@ -225,6 +219,46 @@ const resolvers: Resolvers = {
       })
 
       return photoGallery
+    },
+    addBlog: async (_, {input}, {prisma}) => {
+      const project = await prisma.project.findUnique({
+        where: {
+          id: input.projectId
+        }
+      })
+      
+      const blog = await prisma.blog.upsert({
+        create: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price,
+          commentSection: input.commentSection,
+          socialSharing: input.socialSharing,
+        },
+        update: {
+          id: input.id,
+          projectId: project!.id,
+          status: input.status,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          notes: input.notes,
+          price: input.price,
+          commentSection: input.commentSection,
+          socialSharing: input.socialSharing,
+        },
+        where: {
+          id_projectId: {
+            id: input.id,
+            projectId: project!.id
+          }
+        }
+      })
+
+      return blog
     }
   },
   Customer: {
@@ -261,6 +295,14 @@ const resolvers: Resolvers = {
         }
       }).photoGallery()
       return photoGallery
+    },
+    blog: async ({id}, _, { prisma }) => {
+      const blog = await prisma.project.findUnique({
+        where: {
+          id
+        }
+      }).blog()
+      return blog
     }
   }
 }

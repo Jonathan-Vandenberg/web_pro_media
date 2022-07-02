@@ -14,6 +14,7 @@ type Mutation {
   addFunctionality(input: FunctionalityInput!): Customer
   addMap(input: MapInput!): Map
   addPhotoGallery(input: PhotoGalleryInput!): PhotoGallery
+  addBlog(input: BlogInput!): Blog
 }
 
 type Customer {
@@ -37,6 +38,7 @@ type Project {
   image: String
   map: [Map]
   photoGallery: [PhotoGallery]
+  blog: [Blog]
 }
 
 type Card {
@@ -56,9 +58,6 @@ type Functionality {
   productSearch: Boolean!
   videoGallery: Boolean!
   api: Boolean!
-  blog: Boolean!
-  blogComments: Boolean!
-  blogPosts: Boolean!
   other: String
 }
 
@@ -80,6 +79,18 @@ type PhotoGallery {
   notes: String
   startDate: String
   endDate: String
+}
+
+type Blog {
+  id: String!
+  projecId: String!
+  status: Status!
+  price: Int!
+  notes: String
+  startDate: String
+  endDate: String
+  commentSection: Boolean
+  socialSharing: Boolean
 }
 
 enum Status {
@@ -119,6 +130,18 @@ enum WebsiteCategory {
   REAL_ESTATE
   TRAVEL_AND_TRANSPORTATION
   OTHER
+}
+
+input BlogInput {
+  id: String!
+  projectId: String!
+  status: Status
+  price: Int
+  notes: String
+  startDate: String
+  endDate: String
+  commentSection: Boolean
+  socialSharing: Boolean
 }
 
 input PhotoGalleryInput {

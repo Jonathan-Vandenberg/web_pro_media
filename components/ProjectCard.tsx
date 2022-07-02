@@ -23,7 +23,7 @@ const ProjectCard = () => {
           cover={
             <Image
               alt={customer?.projectName?.toString()}
-              src="https://picsum.photos/id/839/300/300"
+              src={`${customer?.image}`}
               width={300}
               height={300}
               style={{ objectFit: "contain" }}
