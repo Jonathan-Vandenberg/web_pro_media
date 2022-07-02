@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id      String    @id @default(uuid())
+  name    String?
+  email   String?
+  phone   String?
+  project Project[]
+
+  functionality Functionality[]
+}
+
+model Project {
+  id          String  @unique @default(uuid())
+  projectName String
+  status      Status  @default(NOT_STARTED)
+  startDate   String?
+  endDate     String?
+  image       String?
+
+  websiteType     WebsiteType
+  websiteCategory WebsiteCategory @default(AUTOMOTIVE)
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+
+  @@id([id, customerId])
+}
+
+model Functionality {
+  id             String  @unique @default(uuid())
+  calender       Boolean @default(false)
+  chatPopup      Boolean @default(false)
+  contactForm    Boolean @default(false)
+  emailMarketing Boolean @default(false)
+  map            Boolean @default(false)
+  photoGallery   Boolean @default(false)
+  productCatalog Boolean @default(false)
+  productSearch  Boolean @default(false)
+  videoGallery   Boolean @default(false)
+  api            Boolean @default(false)
+  blog           Boolean @default(false)
+  blogComments   Boolean @default(false)
+  blogPosts      Boolean @default(false)
+  other          String?
+
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+
+  @@id([id, customerId])
+}
+
+enum Status {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum WebsiteType {
+  ECOMMERCE_WEBSITE
+  BUSINESS_WEBSITE
+  BLOG_WEBSITE
+  PORTFOLIO_WEBSITE
+  EVENT_WEBSITE
+  PERSONAL_WEBSITE
+  MEMBERSHIP_WEBSITE
+  NONPROFIT_WEBSITE
+  INFORMATIONAL_WEBSITE
+  ONLINE_FORUM
+  OTHER
+}
+
+enum WebsiteCategory {
+  AUTOMOTIVE
+  BUSINESS_SUPPORT_AND_SUPPLIES
+  COMPUTERS_AND_ELECTRONICS
+  CONTRUCTION_AND_CONTRACTING
+  EDUCATION
+  ENTERTAINMENT
+  FOOD_AND_DINING
+  HEALTH_AND_MEDICINE
+  HOME_AND_GARDEN
+  LEGAl_AND_FINANCIAL
+  MANUFACTURING_WHOLESALE_AND_DISTRIBUTION
+  MERCHANTS_AND_RETAIL
+  PERSONAL_CARE_AND_SERVICES
+  REAL_ESTATE
+  TRAVEL_AND_TRANSPORTATION
+  OTHER
+}

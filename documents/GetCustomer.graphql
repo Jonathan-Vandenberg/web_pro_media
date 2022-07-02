@@ -1,0 +1,7 @@
+# import Customer from "./CustomerFragment"
+
+query GetCustomer($id: ID!) {
+  getCustomer(id: $id) {
+    ...Customer
+  }
+}

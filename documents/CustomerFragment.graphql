@@ -1,0 +1,32 @@
+fragment Customer on Customer {
+  id
+  name
+  email
+  phone
+  project {
+    projectName
+    status
+    startDate
+    endDate
+    websiteType
+    websiteCategory
+    image
+  }
+  functionality {
+    customerId
+    calender
+    chatPopup
+    contactForm
+    emailMarketing
+    map
+    photoGallery
+    productCatalog
+    productSearch
+    videoGallery
+    api
+    blog
+    blogComments
+    blogPosts
+    other
+  }
+}

@@ -1,0 +1,7 @@
+# import Customer from "./CustomerFragment"
+
+query GetAllCustomers {
+  getAllCustomers {
+    ...Customer
+  }
+}

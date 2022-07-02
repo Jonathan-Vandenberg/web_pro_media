@@ -1,0 +1,136 @@
+type Query {
+  getCustomer(id: ID!): Customer
+  getAllCustomers: [Customer!]!
+}
+
+type Customer {
+  id: ID!
+  name: String
+  email: String
+  phone: String
+  project: [Project]
+  functionality: [Functionality]
+}
+
+type Project {
+  id: ID!
+  projectName: String!
+  customerId: ID!
+  status: Status!
+  startDate: String
+  endDate: String
+  websiteType: WebsiteType!
+  websiteCategory: WebsiteCategory!
+  image: String
+}
+
+enum Status {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum WebsiteType {
+  ECOMMERCE_WEBSITE
+  BUSINESS_WEBSITE
+  BLOG_WEBSITE
+  PORTFOLIO_WEBSITE
+  EVENT_WEBSITE
+  PERSONAL_WEBSITE
+  MEMBERSHIP_WEBSITE
+  NONPROFIT_WEBSITE
+  INFORMATIONAL_WEBSITE
+  ONLINE_FORUM
+  OTHER
+}
+
+enum WebsiteCategory {
+  AUTOMOTIVE
+  BUSINESS_SUPPORT_AND_SUPPLIES
+  COMPUTERS_AND_ELECTRONICS
+  CONTRUCTION_AND_CONTRACTING
+  EDUCATION
+  ENTERTAINMENT
+  FOOD_AND_DINING
+  HEALTH_AND_MEDICINE
+  HOME_AND_GARDEN
+  LEGAl_AND_FINANCIAL
+  MANUFACTURING_WHOLESALE_AND_DISTRIBUTION
+  MERCHANTS_AND_RETAIL
+  PERSONAL_CARE_AND_SERVICES
+  REAL_ESTATE
+  TRAVEL_AND_TRANSPORTATION
+  OTHER
+}
+
+type Functionality {
+  id: ID!
+  customerId: ID!
+  calender: Boolean!
+  chatPopup: Boolean!
+  contactForm: Boolean!
+  emailMarketing: Boolean!
+  map: Boolean!
+  photoGallery: Boolean!
+  productCatalog: Boolean!
+  productSearch: Boolean!
+  videoGallery: Boolean!
+  api: Boolean!
+  blog: Boolean!
+  blogComments: Boolean!
+  blogPosts: Boolean!
+  other: String
+}
+
+input FunctionalityInput {
+  id: String!
+  customerId: String!
+  calender: Boolean!
+  chatPopup: Boolean!
+  contactForm: Boolean!
+  emailMarketing: Boolean!
+  map: Boolean!
+  photoGallery: Boolean!
+  productCatalog: Boolean!
+  productSearch: Boolean!
+  videoGallery: Boolean!
+  api: Boolean!
+  blog: Boolean!
+  blogComments: Boolean!
+  blogPosts: Boolean!
+  other: String
+}
+
+type Mutation {
+  createCustomer(input: CreateCustomerInput!): Customer
+  updateCustomer(input: UpdateCustomerInput!): Customer
+  deleteCustomer(id: ID!): Customer
+  addProject(input: AddProjectInput!): Customer
+  addFunctionality(input: FunctionalityInput!): Customer
+}
+
+input UpdateCustomerInput {
+  name: String!
+  email: String!
+  phone: String!
+  id: String!
+}
+
+input CreateCustomerInput {
+  name: String!
+  email: String!
+  phone: String!
+  id: String!
+}
+
+input AddProjectInput {
+  projectName: String!
+  customerId: String!
+  id: String!
+  status: Status!
+  startDate: String
+  endDate: String
+  websiteType: WebsiteType!
+  websiteCategory: WebsiteCategory!
+  image: String
+}
