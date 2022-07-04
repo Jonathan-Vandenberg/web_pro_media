@@ -10,7 +10,7 @@ type Mutation {
   createCustomer(input: CreateCustomerInput!): Customer
   updateCustomer(input: UpdateCustomerInput!): Customer
   deleteCustomer(id: ID!): Customer
-  addProject(input: AddProjectInput!): Customer
+  addProject(input: AddProjectInput!): Project
   addFunctionality(input: FunctionalityInput!): Customer
   addMap(input: MapInput!): Map
   addPhotoGallery(input: PhotoGalleryInput!): PhotoGallery
@@ -202,7 +202,7 @@ input AddProjectInput {
   status: Status
   startDate: String
   endDate: String
-  websiteType: WebsiteType
-  websiteCategory: WebsiteCategory
+  websiteType: WebsiteType!
+  websiteCategory: WebsiteCategory!
   image: String
 }

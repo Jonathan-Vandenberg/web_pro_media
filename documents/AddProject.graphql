@@ -1,0 +1,11 @@
+# import AddProject from './AddProjectFragment';
+
+mutation AddProject($input: AddProjectInput!) {
+  addProject(input: $input) {
+    id
+    customerId
+    projectName
+    websiteCategory
+    websiteType
+  }
+}

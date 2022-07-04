@@ -2,6 +2,7 @@ import { CoffeeOutlined, LineChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { NextPage } from "next";
 import { SetStateAction, useState } from "react";
+import AddProjectModal from "./AddProjectModal";
 
 const items = [
   {
@@ -29,6 +30,10 @@ const items = [
         ],
       },
     ],
+  },
+  {
+    key: "addProject",
+    icon: <AddProjectModal />,
   },
 ];
 

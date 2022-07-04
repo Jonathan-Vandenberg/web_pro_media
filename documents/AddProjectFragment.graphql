@@ -1,0 +1,8 @@
+fragment AddProject on Project {
+  id
+  projectName
+  customerId
+  status
+  websiteType
+  websiteCategory
+}

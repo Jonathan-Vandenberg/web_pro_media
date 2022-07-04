@@ -1,0 +1,6 @@
+fragment AddCustomer on Customer {
+  id
+  name
+  email
+  phone
+}

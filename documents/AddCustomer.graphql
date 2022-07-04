@@ -1,0 +1,7 @@
+# import AddCustomer from './AddCustomerFragment';
+
+mutation AddCustomer($input: CreateCustomerInput!) {
+  createCustomer(input: $input) {
+    ...AddCustomer
+  }
+}

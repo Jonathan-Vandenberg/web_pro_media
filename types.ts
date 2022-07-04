@@ -27,8 +27,8 @@ export type AddProjectInput = {
   projectName?: InputMaybe<Scalars['String']>;
   startDate?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Status>;
-  websiteCategory?: InputMaybe<WebsiteCategory>;
-  websiteType?: InputMaybe<WebsiteType>;
+  websiteCategory: WebsiteCategory;
+  websiteType: WebsiteType;
 };
 
 export type Blog = {
@@ -139,7 +139,7 @@ export type Mutation = {
   addFunctionality?: Maybe<Customer>;
   addMap?: Maybe<Map>;
   addPhotoGallery?: Maybe<PhotoGallery>;
-  addProject?: Maybe<Customer>;
+  addProject?: Maybe<Project>;
   createCustomer?: Maybe<Customer>;
   deleteCustomer?: Maybe<Customer>;
   updateCustomer?: Maybe<Customer>;
@@ -461,7 +461,7 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addFunctionality?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationAddFunctionalityArgs, 'input'>>;
   addMap?: Resolver<Maybe<ResolversTypes['Map']>, ParentType, ContextType, RequireFields<MutationAddMapArgs, 'input'>>;
   addPhotoGallery?: Resolver<Maybe<ResolversTypes['PhotoGallery']>, ParentType, ContextType, RequireFields<MutationAddPhotoGalleryArgs, 'input'>>;
-  addProject?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationAddProjectArgs, 'input'>>;
+  addProject?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<MutationAddProjectArgs, 'input'>>;
   createCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>;
   deleteCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, 'id'>>;
   updateCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomerArgs, 'input'>>;
@@ -515,6 +515,24 @@ export type Resolvers<ContextType = GraphQLContext> = {
 };
 
 
+export const AddCustomerFragmentDoc = gql`
+    fragment AddCustomer on Customer {
+  id
+  name
+  email
+  phone
+}
+    `;
+export const AddProjectFragmentDoc = gql`
+    fragment AddProject on Project {
+  id
+  projectName
+  customerId
+  status
+  websiteType
+  websiteCategory
+}
+    `;
 export const CardFragmentDoc = gql`
     fragment Card on Card {
   projectName
@@ -574,6 +592,76 @@ export const CustomerFragmentDoc = gql`
   }
 }
     `;
+export const AddCustomerDocument = gql`
+    mutation AddCustomer($input: CreateCustomerInput!) {
+  createCustomer(input: $input) {
+    ...AddCustomer
+  }
+}
+    ${AddCustomerFragmentDoc}`;
+export type AddCustomerMutationFn = Apollo.MutationFunction<AddCustomerMutation, AddCustomerMutationVariables>;
+
+/**
+ * __useAddCustomerMutation__
+ *
+ * To run a mutation, you first call `useAddCustomerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCustomerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCustomerMutation, { data, loading, error }] = useAddCustomerMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddCustomerMutation(baseOptions?: Apollo.MutationHookOptions<AddCustomerMutation, AddCustomerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCustomerMutation, AddCustomerMutationVariables>(AddCustomerDocument, options);
+      }
+export type AddCustomerMutationHookResult = ReturnType<typeof useAddCustomerMutation>;
+export type AddCustomerMutationResult = Apollo.MutationResult<AddCustomerMutation>;
+export type AddCustomerMutationOptions = Apollo.BaseMutationOptions<AddCustomerMutation, AddCustomerMutationVariables>;
+export const AddProjectDocument = gql`
+    mutation AddProject($input: AddProjectInput!) {
+  addProject(input: $input) {
+    id
+    customerId
+    projectName
+    websiteCategory
+    websiteType
+  }
+}
+    `;
+export type AddProjectMutationFn = Apollo.MutationFunction<AddProjectMutation, AddProjectMutationVariables>;
+
+/**
+ * __useAddProjectMutation__
+ *
+ * To run a mutation, you first call `useAddProjectMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddProjectMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addProjectMutation, { data, loading, error }] = useAddProjectMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddProjectMutation(baseOptions?: Apollo.MutationHookOptions<AddProjectMutation, AddProjectMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddProjectMutation, AddProjectMutationVariables>(AddProjectDocument, options);
+      }
+export type AddProjectMutationHookResult = ReturnType<typeof useAddProjectMutation>;
+export type AddProjectMutationResult = Apollo.MutationResult<AddProjectMutation>;
+export type AddProjectMutationOptions = Apollo.BaseMutationOptions<AddProjectMutation, AddProjectMutationVariables>;
 export const GetAllCardsDocument = gql`
     query GetAllCards {
   getAllCards {
@@ -677,6 +765,24 @@ export function useGetCustomerLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetCustomerQueryHookResult = ReturnType<typeof useGetCustomerQuery>;
 export type GetCustomerLazyQueryHookResult = ReturnType<typeof useGetCustomerLazyQuery>;
 export type GetCustomerQueryResult = Apollo.QueryResult<GetCustomerQuery, GetCustomerQueryVariables>;
+export type AddCustomerMutationVariables = Exact<{
+  input: CreateCustomerInput;
+}>;
+
+
+export type AddCustomerMutation = { __typename?: 'Mutation', createCustomer?: { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null } | null };
+
+export type AddCustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null };
+
+export type AddProjectMutationVariables = Exact<{
+  input: AddProjectInput;
+}>;
+
+
+export type AddProjectMutation = { __typename?: 'Mutation', addProject?: { __typename?: 'Project', id: string, customerId?: string | null, projectName?: string | null, websiteCategory?: WebsiteCategory | null, websiteType?: WebsiteType | null } | null };
+
+export type AddProjectFragment = { __typename?: 'Project', id: string, projectName?: string | null, customerId?: string | null, status?: Status | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null };
+
 export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null };
 
 export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: Array<{ __typename?: 'Map', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null> | null, photoGallery?: Array<{ __typename?: 'PhotoGallery', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null> | null, blog?: Array<{ __typename?: 'Blog', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null> | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null> | null };
