@@ -58,6 +58,7 @@ export type BlogInput = {
 
 export type Card = {
   __typename?: 'Card';
+  customerId: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   projectName: Scalars['String'];
   status: Scalars['String'];
@@ -141,7 +142,11 @@ export type Mutation = {
   addPhotoGallery?: Maybe<PhotoGallery>;
   addProject?: Maybe<Project>;
   createCustomer?: Maybe<Customer>;
+  deleteBlog?: Maybe<Blog>;
   deleteCustomer?: Maybe<Customer>;
+  deleteMap?: Maybe<Map>;
+  deletePhotoGallery?: Maybe<PhotoGallery>;
+  deleteProject?: Maybe<Project>;
   updateCustomer?: Maybe<Customer>;
 };
 
@@ -176,7 +181,27 @@ export type MutationCreateCustomerArgs = {
 };
 
 
+export type MutationDeleteBlogArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteMapArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeletePhotoGalleryArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteProjectArgs = {
   id: Scalars['ID'];
 };
 
@@ -229,10 +254,16 @@ export type Query = {
   getCustomer?: Maybe<Customer>;
   getMaps: Array<Map>;
   getPhotoGalleries: Array<PhotoGallery>;
+  getProject?: Maybe<Project>;
 };
 
 
 export type QueryGetCustomerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryGetProjectArgs = {
   id: Scalars['ID'];
 };
 
@@ -414,6 +445,7 @@ export type BlogResolvers<ContextType = GraphQLContext, ParentType extends Resol
 };
 
 export type CardResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
+  customerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   projectName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -463,7 +495,11 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   addPhotoGallery?: Resolver<Maybe<ResolversTypes['PhotoGallery']>, ParentType, ContextType, RequireFields<MutationAddPhotoGalleryArgs, 'input'>>;
   addProject?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<MutationAddProjectArgs, 'input'>>;
   createCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>;
+  deleteBlog?: Resolver<Maybe<ResolversTypes['Blog']>, ParentType, ContextType, RequireFields<MutationDeleteBlogArgs, 'id'>>;
   deleteCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, 'id'>>;
+  deleteMap?: Resolver<Maybe<ResolversTypes['Map']>, ParentType, ContextType, RequireFields<MutationDeleteMapArgs, 'id'>>;
+  deletePhotoGallery?: Resolver<Maybe<ResolversTypes['PhotoGallery']>, ParentType, ContextType, RequireFields<MutationDeletePhotoGalleryArgs, 'id'>>;
+  deleteProject?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<MutationDeleteProjectArgs, 'id'>>;
   updateCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<MutationUpdateCustomerArgs, 'input'>>;
 };
 
@@ -500,6 +536,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   getCustomer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryGetCustomerArgs, 'id'>>;
   getMaps?: Resolver<Array<ResolversTypes['Map']>, ParentType, ContextType>;
   getPhotoGalleries?: Resolver<Array<ResolversTypes['PhotoGallery']>, ParentType, ContextType>;
+  getProject?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<QueryGetProjectArgs, 'id'>>;
 };
 
 export type Resolvers<ContextType = GraphQLContext> = {
@@ -538,6 +575,7 @@ export const CardFragmentDoc = gql`
   projectName
   status
   image
+  customerId
 }
     `;
 export const CustomerFragmentDoc = gql`
@@ -783,14 +821,14 @@ export type AddProjectMutation = { __typename?: 'Mutation', addProject?: { __typ
 
 export type AddProjectFragment = { __typename?: 'Project', id: string, projectName?: string | null, customerId?: string | null, status?: Status | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null };
 
-export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null };
+export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null, customerId: string };
 
 export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: Array<{ __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: Array<{ __typename?: 'Map', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null> | null, photoGallery?: Array<{ __typename?: 'PhotoGallery', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null> | null, blog?: Array<{ __typename?: 'Blog', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null> | null } | null> | null, functionality?: Array<{ __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null> | null };
 
 export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', projectName: string, status: string, image?: string | null }> };
+export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __typename?: 'Card', projectName: string, status: string, image?: string | null, customerId: string }> };
 
 export type GetAllCustomersQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -27,9 +27,10 @@ const AddProjectModal = () => {
 
   return (
     <>
-      <Button type="ghost" onClick={showModal} icon={<PlusCircleOutlined />}>
+      <Button type="text" onClick={showModal} icon={<PlusCircleOutlined />}>
         Add Project
       </Button>
+
       <Modal
         visible={visible}
         onOk={handleOk}

@@ -34,7 +34,7 @@ model Project {
   websiteType     WebsiteType?
   websiteCategory WebsiteCategory? @default(AUTOMOTIVE)
 
-  customer   Customer? @relation(fields: [customerId], references: [id])
+  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String
 
   @@id([id, customerId])
@@ -53,7 +53,7 @@ model Functionality {
   api            Boolean @default(false)
   other          String?
 
-  customer   Customer @relation(fields: [customerId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String
 
   @@id([id, customerId])
@@ -67,7 +67,7 @@ model Map {
   startDate String?
   endDate   String?
   projectId String  @unique
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@id([id, projectId])
 }
@@ -80,7 +80,7 @@ model PhotoGallery {
   startDate String?
   endDate   String?
   projectId String  @unique
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@id([id, projectId])
 }
@@ -95,7 +95,7 @@ model Blog {
   commentSection Boolean?
   socialSharing  Boolean?
   projectId      String   @unique
-  project        Project  @relation(fields: [projectId], references: [id])
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@id([id, projectId])
 }

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { CoffeeOutlined } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import { useGetAllCardsQuery } from "../types";
 import Image from "next/image";
@@ -12,6 +8,13 @@ const { Meta } = Card;
 const ProjectCard = () => {
   const { data, loading, error } = useGetAllCardsQuery();
 
+  /**Pulls a random image from lorumpicsum.com */
+  const randomImage = () => {
+    const serial = Math.floor(Math.random() * 100);
+    const url = `https://picsum.photos/id/${serial}/500/300`;
+    return url;
+  };
+
   return (
     <div
       style={{
@@ -19,10 +22,11 @@ const ProjectCard = () => {
         flexWrap: "wrap",
         padding: "1rem",
         margin: "0 3rem",
+        paddingTop: "3rem",
       }}
     >
-      {data?.getAllCards?.map((customer?) => (
-        <div key={customer.projectName} style={{ padding: "2rem" }}>
+      {data?.getAllCards?.map((project?) => (
+        <div key={project.projectName} style={{ padding: "2rem" }}>
           <Card
             style={{
               width: 300,
@@ -30,28 +34,21 @@ const ProjectCard = () => {
             }}
             cover={
               <Image
-                alt={customer?.projectName?.toString()}
-                src={
-                  customer?.image
-                    ? `${customer?.image}`
-                    : "https://source.unsplash.com/random/1600x900?apple"
-                }
-                width={300}
+                alt={project?.projectName?.toString()}
+                src={project?.image ? `${project?.image}` : randomImage()}
+                width={500}
                 height={300}
                 style={{ objectFit: "contain" }}
               />
             }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
+            actions={[<CoffeeOutlined key="edit" />]}
+            extra={<a href={`/${project?.customerId}`}>Overview</a>}
           >
             <Meta
               avatar={<Avatar src="https://picsum.photos/id/129/300/300" />}
-              title={customer.projectName}
+              title={project.projectName}
               description={
-                customer.status === "COMPLETED" ? (
+                project.status === "COMPLETED" ? (
                   <p style={{ color: "green" }}>
                     <strong>Complete</strong>
                   </p>

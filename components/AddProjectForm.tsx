@@ -10,46 +10,45 @@ const AddProjectForm = () => {
   const [websiteType, setWebsiteType] = useState("");
   const [websiteCategory, setWebsiteCategory] = useState("");
 
-  const [componentDisabled, setComponentDisabled] = useState(false);
-
   const { value: customerId } = useAppSelector((state) => state.customerId);
 
   const [addProject, { loading }] = useAddProjectMutation({
     refetchQueries: [AddProjectDocument],
   });
 
-  const onFormLayoutChange = ({ disabled }: any) => {
-    setComponentDisabled(disabled);
-  };
-
   const submitProject = () => {
-    addProject({
-      variables: {
-        input: {
-          projectName: projectName,
-          customerId: customerId,
-          id: uuid(),
-          websiteType: websiteType as WebsiteType,
-          websiteCategory: websiteCategory as WebsiteCategory,
+    if (projectName !== "" && websiteType !== "" && websiteCategory !== "") {
+      addProject({
+        variables: {
+          input: {
+            projectName: projectName,
+            customerId: customerId,
+            id: uuid(),
+            websiteType: websiteType as WebsiteType,
+            websiteCategory: websiteCategory as WebsiteCategory,
+          },
         },
-      },
-    });
+      });
+
+      setProjectName("");
+      setWebsiteType("");
+      setWebsiteCategory("");
+    }
+
+    return;
   };
 
   return (
     <Form
       labelCol={{
-        span: 4,
+        span: 8,
       }}
       wrapperCol={{
-        span: 14,
+        span: 16,
       }}
-      layout="horizontal"
       initialValues={{
-        disabled: componentDisabled,
+        remember: true,
       }}
-      onValuesChange={onFormLayoutChange}
-      disabled={componentDisabled}
       onFinish={submitProject}
     >
       <Form.Item label="Name" required>
@@ -126,11 +125,19 @@ const AddProjectForm = () => {
           <Select.Option value="OTHER">Other</Select.Option>
         </Select>
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        wrapperCol={{
+          offset: 12,
+          span: 16,
+        }}
+      >
         <Button
           htmlType="submit"
           type="primary"
-          style={{ backgroundColor: "purple", border: "none" }}
+          style={{
+            backgroundColor: "purple",
+            border: "none",
+          }}
         >
           Create Project
         </Button>

@@ -4,6 +4,7 @@ type Query {
   getAllCards: [Card!]!
   getMaps: [Map!]!
   getPhotoGalleries: [PhotoGallery!]!
+  getProject(id: ID!): Project
 }
 
 type Mutation {
@@ -11,10 +12,14 @@ type Mutation {
   updateCustomer(input: UpdateCustomerInput!): Customer
   deleteCustomer(id: ID!): Customer
   addProject(input: AddProjectInput!): Project
+  deleteProject(id: ID!): Project
   addFunctionality(input: FunctionalityInput!): Customer
   addMap(input: MapInput!): Map
+  deleteMap(id: ID!): Map
   addPhotoGallery(input: PhotoGalleryInput!): PhotoGallery
+  deletePhotoGallery(id: ID!): PhotoGallery
   addBlog(input: BlogInput!): Blog
+  deleteBlog(id: ID!): Blog
 }
 
 type Customer {
@@ -45,6 +50,7 @@ type Card {
   projectName: String!
   status: String!
   image: String
+  customerId: ID!
 }
 
 type Functionality {

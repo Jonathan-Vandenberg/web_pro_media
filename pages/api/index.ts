@@ -75,11 +75,15 @@ const resolvers: Resolvers = {
       return customer
     },
     addProject: async (_, {input}, {prisma}) => {
-      const customer = await findOrCreateCustomer(prisma, input.customerId)
+      const customer = await prisma.customer.findUnique({
+        where: {
+          id: input.customerId
+        }
+      })
 
-      await prisma.project.upsert({
+      const project = await prisma.project.upsert({
         create: {
-          customerId: customer.id,
+          customerId: customer!.id,
           projectName: input.projectName,
           id: input.id,
           status: input.status,
@@ -103,11 +107,19 @@ const resolvers: Resolvers = {
         where:{
           id_customerId: {
             id: input.id,
-            customerId: customer.id
+            customerId: customer!.id
           }
         }
       })
-      return customer
+      return project
+    },
+    deleteProject: async (_, {id}, {prisma}) => {
+      const project = await prisma.project.delete({
+        where: {
+          id
+        }
+      })
+      return project
     },
     addFunctionality: async (_, {input}, {prisma}) => {
       const customer = await findOrCreateCustomer(prisma, input.customerId)
@@ -184,6 +196,15 @@ const resolvers: Resolvers = {
 
       return map
     },
+    deleteMap: async (_, {id}, {prisma}) => {
+      const map = await prisma.map.delete({
+        where : {
+          id
+        }
+      })
+
+      return map
+    },
     addPhotoGallery: async (_, {input}, {prisma}) => {
       const project = await prisma.project.findUnique({
         where: {
@@ -218,6 +239,14 @@ const resolvers: Resolvers = {
         }
       })
 
+      return photoGallery
+    },
+    deletePhotoGallery: async (_, {id}, {prisma}) => {
+      const photoGallery = await prisma.photoGallery.delete({
+        where : {
+          id
+        }
+      })
       return photoGallery
     },
     addBlog: async (_, {input}, {prisma}) => {
@@ -259,7 +288,15 @@ const resolvers: Resolvers = {
       })
 
       return blog
-    }
+    },
+    deleteBlog: async (_, {id}, {prisma}) => {
+      const blog = await prisma.blog.delete({
+        where : {
+          id
+        }
+      })
+      return blog
+    },
   },
   Customer: {
     project: async ({id}, _, { prisma }) => {

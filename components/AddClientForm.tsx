@@ -34,7 +34,13 @@ const AddClientForm = () => {
         },
       });
       dispatch(customerId(id));
+
+      setName("");
+      setEmail("");
+      setPhone("");
     }
+
+    return;
   };
 
   const onFinishFailed = () => {
@@ -94,12 +100,19 @@ const AddClientForm = () => {
       </Form.Item>
       <Form.Item
         wrapperCol={{
-          offset: 8,
+          offset: 14,
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
-          Add
+        <Button
+          htmlType="submit"
+          type="primary"
+          style={{
+            backgroundColor: "purple",
+            border: "none",
+          }}
+        >
+          Add Client
         </Button>
       </Form.Item>
     </Form>
