@@ -3,7 +3,6 @@ import { useState } from "react";
 import SideMenu from "../components/OverviewComponents/NavOverview";
 import Overview from "../components/OverviewComponents/Overview";
 import Requirements from "../components/OverviewComponents/Requirements";
-import TimelineComponent from "../components/OverviewComponents/Timeline";
 import { useCustomerQuery } from "../types";
 
 const ProjectOverview = () => {
@@ -78,10 +77,8 @@ const ProjectOverview = () => {
           alignItems: "center",
           paddingTop: "3rem",
         }}
-      >
-        {enableTimeline && <TimelineComponent />}
-      </div>
-      {enableClientInfo && <Overview />}
+      ></div>
+      {enableClientInfo && <Overview id={slug as string} />}
       {enableRequirements && <Requirements id={slug as string} />}
     </>
   );

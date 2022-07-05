@@ -21,7 +21,7 @@ const typeDefs = readFileSync(join(process.cwd(), 'schema.graphql'), {
 
 const resolvers: Resolvers = {
   Query: {
-    customer: async (_, { id }, { prisma }) => {
+    customer: (_, { id }, { prisma }) => {
       return prisma.customer.findUnique({
         where: {
           id
@@ -39,6 +39,13 @@ const resolvers: Resolvers = {
     },
     getPhotoGalleries: async (_, __, { prisma }) => {
       return prisma.photoGallery.findMany()
+    },
+    timeline: (_, {id}, { prisma }) => {
+      return prisma.timeline.findUnique({
+        where: {
+          id
+        }
+      })
     }
   },
   Mutation: {
@@ -105,10 +112,7 @@ const resolvers: Resolvers = {
           image: input.image,
         },
         where:{
-          id_customerId: {
-            id: input.id,
-            customerId: customer!.id
-          }
+          id: input.id
         }
       })
       return project
@@ -152,10 +156,7 @@ const resolvers: Resolvers = {
           other: input.other
         },
         where: {
-          id_customerId: {
-            id: input.id,
-            customerId: customer.id
-          }
+          id: input.id
         }
       })
       return customer
@@ -187,10 +188,7 @@ const resolvers: Resolvers = {
           price: input.price
         },
         where: {
-          id_projectId: {
-            id: input.id,
-            projectId: project!.id
-          }
+          id: input.id
         }
       })
 
@@ -232,10 +230,7 @@ const resolvers: Resolvers = {
           price: input.price
         },
         where: {
-          id_projectId: {
-            id: input.id,
-            projectId: project!.id
-          }
+          id: input.id
         }
       })
 
@@ -280,10 +275,7 @@ const resolvers: Resolvers = {
           socialSharing: input.socialSharing,
         },
         where: {
-          id_projectId: {
-            id: input.id,
-            projectId: project!.id
-          }
+          id: input.id
         }
       })
 
@@ -297,6 +289,48 @@ const resolvers: Resolvers = {
       })
       return blog
     },
+    addTimeline: async (_, {input}, {prisma}) => {
+      const project = await prisma.project.findUnique({
+        where: {
+          id: input.projectId
+        }
+      })
+
+      const timeline = await prisma.timeline.upsert({
+        create: {
+          id: input.id,
+          projectId: project!.id,
+          clarify: input.clarify,
+          functionality: input.functionality,
+          layout: input.layout,
+          tools: input.tools,
+          implementFunctionality: input.implementFunctionality,
+          implementDesign: input.implementDesign,
+          review: input.review,
+          alterations: input.alterations,
+          testing: input.testing,
+          deploy: input.deploy
+        },
+        update: {
+          id: input.id,
+          projectId: project!.id,
+          clarify: input.clarify,
+          functionality: input.functionality,
+          layout: input.layout,
+          tools: input.tools,
+          implementFunctionality: input.implementFunctionality,
+          implementDesign: input.implementDesign,
+          review: input.review,
+          alterations: input.alterations,
+          testing: input.testing,
+          deploy: input.deploy
+        },
+        where: {
+          id: input.id
+        }
+      })
+      return timeline
+    }
   },
   Customer: {
     project: async ({id}, _, { prisma }) => {
@@ -340,6 +374,14 @@ const resolvers: Resolvers = {
         }
       }).blog()
       return blog
+    },
+    timeline: async ({id}, _, { prisma }) => {
+      const timeline = await prisma.project.findUnique({
+        where: {
+          id
+        }
+      }).timeline()
+      return timeline
     }
   }
 }

@@ -1,0 +1,12 @@
+fragment Timeline on Timeline {
+  clarify
+  functionality
+  layout
+  tools
+  implementFunctionality
+  implementDesign
+  review
+  alterations
+  testing
+  deploy
+}

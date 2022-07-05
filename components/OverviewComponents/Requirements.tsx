@@ -4,26 +4,11 @@ import "antd/dist/antd.css";
 import React from "react";
 import { useCustomerQuery } from "../../types";
 
-const progressSteps = [
-  "Clarify Project Requirements",
-  "Design Rough Functionality",
-  "Design Rough Layout",
-  "Decide on Framework and Tools",
-  "Implement Functionality",
-  "Implement Design",
-  "Client Review",
-  "Alterations if Needed",
-  "Testing",
-  "Deployment",
-];
-
 interface Props {
   id: string;
 }
 
 const Requirements = ({ id }: Props) => {
-  const [success, setSuccess] = React.useState(true);
-
   const {
     data: get,
     loading,
@@ -47,7 +32,7 @@ const Requirements = ({ id }: Props) => {
   // Notes
   const content = (
     <div>
-      <p>{get?.customer?.project[0]?.map[0]?.notes}</p>
+      <p>{get?.customer?.project?.map?.notes}</p>
     </div>
   );
 
@@ -59,15 +44,16 @@ const Requirements = ({ id }: Props) => {
     notes: string | null | undefined;
   }
 
+  let a = true;
   const data: IRequirement[] = [];
 
-  if (get?.customer?.project[0]?.map?.length > 0) {
+  if (a) {
     data.push({
       key: "1",
-      date: get?.customer?.project[0]?.map[0]?.startDate,
-      name: get?.customer?.project[0]?.map[0] ? "Map" : null,
-      status: get?.customer?.project[0]?.map[0]?.status,
-      notes: get?.customer?.project[0]?.map[0]?.notes,
+      date: get?.customer?.project?.map?.startDate,
+      name: get?.customer?.project?.map ? "Map" : null,
+      status: get?.customer?.project?.map?.status,
+      notes: get?.customer?.project?.map?.notes,
     });
 
     columns.push(
@@ -88,7 +74,7 @@ const Requirements = ({ id }: Props) => {
         render: (notes: string) => {
           return (
             <Popover content={content} title="Title" trigger="click">
-              <Button>Read Me</Button>
+              <Button>Info</Button>
             </Popover>
           );
         },

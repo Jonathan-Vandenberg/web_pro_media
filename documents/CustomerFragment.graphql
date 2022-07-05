@@ -34,6 +34,20 @@ fragment Customer on Customer {
       commentSection
       socialSharing
     }
+    timeline {
+      id
+      projectId
+      clarify
+      functionality
+      layout
+      tools
+      implementFunctionality
+      implementDesign
+      review
+      alterations
+      testing
+      deploy
+    }
   }
   functionality {
     customerId

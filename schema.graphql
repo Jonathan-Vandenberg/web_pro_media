@@ -5,6 +5,7 @@ type Query {
   getMaps: [Map!]!
   getPhotoGalleries: [PhotoGallery!]!
   getProject(id: ID!): Project
+  timeline(id: ID!): Timeline
 }
 
 type Mutation {
@@ -20,6 +21,7 @@ type Mutation {
   deletePhotoGallery(id: ID!): PhotoGallery
   addBlog(input: BlogInput!): Blog
   deleteBlog(id: ID!): Blog
+  addTimeline(input: TimelineInput!): Timeline
 }
 
 type Customer {
@@ -27,8 +29,8 @@ type Customer {
   name: String
   email: String
   phone: String
-  project: [Project]
-  functionality: [Functionality]
+  project: Project
+  functionality: Functionality
 }
 
 type Project {
@@ -41,9 +43,25 @@ type Project {
   websiteType: WebsiteType
   websiteCategory: WebsiteCategory
   image: String
-  map: [Map]
-  photoGallery: [PhotoGallery]
-  blog: [Blog]
+  map: Map
+  photoGallery: PhotoGallery
+  blog: Blog
+  timeline: Timeline
+}
+
+type Timeline {
+  id: ID!
+  projectId: ID!
+  clarify: Status!
+  functionality: Status!
+  layout: Status!
+  tools: Status!
+  implementFunctionality: Status!
+  implementDesign: Status!
+  review: Status!
+  alterations: Status!
+  testing: Status!
+  deploy: Status!
 }
 
 type Card {
@@ -136,6 +154,21 @@ enum WebsiteCategory {
   REAL_ESTATE
   TRAVEL_AND_TRANSPORTATION
   OTHER
+}
+
+input TimelineInput {
+  id: ID!
+  projectId: ID!
+  clarify: Status!
+  functionality: Status!
+  layout: Status!
+  tools: Status!
+  implementFunctionality: Status!
+  implementDesign: Status!
+  review: Status!
+  alterations: Status!
+  testing: Status!
+  deploy: Status!
 }
 
 input BlogInput {

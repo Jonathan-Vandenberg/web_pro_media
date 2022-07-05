@@ -1,0 +1,7 @@
+# import Timeline from './TimelineFragment'
+
+query Timeline($id: ID!) {
+  timeline(id: $id) {
+    ...Timeline
+  }
+}

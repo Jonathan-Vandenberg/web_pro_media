@@ -11,7 +11,7 @@ const Navbar: NextPage = () => {
   const items = [
     {
       label: "Web Pro Media",
-      key: "mail",
+      key: "home",
       icon: <LineChartOutlined />,
       onClick: () => {
         router.push("/");
@@ -24,20 +24,8 @@ const Navbar: NextPage = () => {
     },
   ];
 
-  const [current, setCurrent] = useState("mail");
-
-  const onClick = (e: { key: SetStateAction<string> }) => {
-    setCurrent(e.key);
-  };
-
   return (
-    <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={items}
-      style={{ lineHeight: "64px" }}
-    />
+    <Menu mode="horizontal" items={items} style={{ lineHeight: "64px" }} />
   );
 };
 
