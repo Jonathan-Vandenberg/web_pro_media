@@ -153,7 +153,7 @@ input BlogInput {
 input PhotoGalleryInput {
   projectId: String!
   id: String!
-  status: Status
+  status: Status!
   price: Int
   notes: String
   startDate: String
@@ -163,7 +163,7 @@ input PhotoGalleryInput {
 input MapInput {
   id: ID!
   projectId: ID!
-  status: Status
+  status: Status!
   price: Int
   notes: String
   startDate: String

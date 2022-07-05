@@ -131,7 +131,7 @@ export type MapInput = {
   price?: InputMaybe<Scalars['Int']>;
   projectId: Scalars['ID'];
   startDate?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
+  status: Status;
 };
 
 export type Mutation = {
@@ -228,7 +228,7 @@ export type PhotoGalleryInput = {
   price?: InputMaybe<Scalars['Int']>;
   projectId: Scalars['String'];
   startDate?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
+  status: Status;
 };
 
 export type Project = {

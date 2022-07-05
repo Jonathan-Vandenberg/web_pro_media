@@ -10,7 +10,7 @@ const ProjectCard = () => {
 
   /**Pulls a random image from lorumpicsum.com */
   const randomImage = () => {
-    const serial = Math.floor(Math.random() * 100);
+    const serial = Math.floor(Math.random() * 50);
     const url = `https://picsum.photos/id/${serial}/500/300`;
     return url;
   };
