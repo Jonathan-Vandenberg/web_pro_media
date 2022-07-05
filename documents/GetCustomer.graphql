@@ -1,7 +1,7 @@
 # import Customer from "./CustomerFragment"
 
-query GetCustomer($id: ID!) {
-  getCustomer(id: $id) {
+query Customer($id: ID!) {
+  customer(id: $id) {
     ...Customer
   }
 }

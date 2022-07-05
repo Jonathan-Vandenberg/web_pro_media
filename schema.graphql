@@ -1,5 +1,5 @@
 type Query {
-  getCustomer(id: ID!): Customer
+  customer(id: ID!): Customer
   getAllCustomers: [Customer!]!
   getAllCards: [Card!]!
   getMaps: [Map!]!

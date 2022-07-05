@@ -1,22 +1,24 @@
 import { NextRouter, useRouter } from "next/router";
 import { useState } from "react";
 import SideMenu from "../components/OverviewComponents/NavOverview";
+import Overview from "../components/OverviewComponents/Overview";
+import Requirements from "../components/OverviewComponents/Requirements";
 import TimelineComponent from "../components/OverviewComponents/Timeline";
-import { useGetCustomerQuery } from "../types";
+import { useCustomerQuery } from "../types";
 
 const ProjectOverview = () => {
-  const [enableTimeline, setEnableTimeline] = useState(false);
+  const [enableTimeline, setEnableTimeline] = useState(true);
   const [enableClientInfo, setEnableClientInfo] = useState(false);
   const [enableRequirements, setEnableRequirements] = useState(false);
   const [enablePerformance, setEnablePerformance] = useState(false);
   const [enablePayments, setEnablePayments] = useState(false);
 
   const router: NextRouter = useRouter();
-  const { id } = router.query;
+  const { id: slug } = router.query;
 
-  const { data, loading, error } = useGetCustomerQuery({
+  const { data, loading, error } = useCustomerQuery({
     variables: {
-      id: id as string,
+      id: slug as string,
     },
   });
 
@@ -33,7 +35,7 @@ const ProjectOverview = () => {
         setEnablePerformance(false);
         setEnablePayments(false);
         break;
-      case "ClientInfo":
+      case "Client":
         setEnableClientInfo(!enableClientInfo);
         setEnableTimeline(false);
         setEnableRequirements(false);
@@ -79,6 +81,8 @@ const ProjectOverview = () => {
       >
         {enableTimeline && <TimelineComponent />}
       </div>
+      {enableClientInfo && <Overview />}
+      {enableRequirements && <Requirements id={slug as string} />}
     </>
   );
 };

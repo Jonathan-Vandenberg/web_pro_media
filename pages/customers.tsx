@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import { useGetCustomerQuery, useGetAllCustomersQuery } from "../types";
+import { useCustomerQuery, useGetAllCustomersQuery } from "../types";
 
 const Customer: NextPage = () => {
   const [customerId, setCustomerId] = useState("1");
 
-  const { data } = useGetCustomerQuery({
+  const { data } = useCustomerQuery({
     variables: { id: customerId },
   });
 

@@ -61,7 +61,7 @@ model Functionality {
 
 model Map {
   id        String  @unique @default(uuid())
-  status    Status?
+  status    Status
   price     Int?
   notes     String?
   startDate String?

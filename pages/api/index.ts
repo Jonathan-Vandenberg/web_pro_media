@@ -21,7 +21,7 @@ const typeDefs = readFileSync(join(process.cwd(), 'schema.graphql'), {
 
 const resolvers: Resolvers = {
   Query: {
-    getCustomer: async (_, { id }, { prisma }) => {
+    customer: async (_, { id }, { prisma }) => {
       return prisma.customer.findUnique({
         where: {
           id
