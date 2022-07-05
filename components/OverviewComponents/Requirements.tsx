@@ -27,8 +27,6 @@ const Requirements = ({ id }: Props) => {
     return <p>Error: {error.message}</p>;
   }
 
-  const columns = [];
-
   // Notes
   const content = (
     <div>
@@ -44,71 +42,69 @@ const Requirements = ({ id }: Props) => {
     notes: string | null | undefined;
   }
 
-  let a = true;
   const data: IRequirement[] = [];
+  const columns = [];
 
-  if (a) {
-    data.push({
-      key: "1",
-      date: get?.customer?.project?.map?.startDate,
-      name: get?.customer?.project?.map ? "Map" : null,
-      status: get?.customer?.project?.map?.status,
-      notes: get?.customer?.project?.map?.notes,
-    });
+  data.push({
+    key: "1",
+    date: get?.customer?.project?.map?.startDate,
+    name: get?.customer?.project?.map ? "Map" : null,
+    status: get?.customer?.project?.map?.status,
+    notes: get?.customer?.project?.map?.notes,
+  });
 
-    columns.push(
-      {
-        title: "Start Date",
-        dataIndex: "date",
-        key: "date",
+  columns.push(
+    {
+      title: "Start Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "Req",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Notes",
+      dataIndex: "notes",
+      key: "notes",
+      render: (notes: string) => {
+        return (
+          <Popover content={content} title="Title" trigger="click">
+            <Button>Info</Button>
+          </Popover>
+        );
       },
-      {
-        title: "Req",
-        dataIndex: "name",
-        key: "name",
+    },
+    {
+      dataIndex: "status",
+      key: "state",
+      render: (status: string) => {
+        if (status === "NOT_STARTED") {
+          return <Badge status="warning" text="Not Started" />;
+        } else if (status === "IN_PROGRESS") {
+          return <Badge status="processing" text="In Progress" />;
+        } else if (status === "COMPLETED") {
+          return <Badge status="success" text="Completed" />;
+        }
       },
-      {
-        title: "Notes",
-        dataIndex: "notes",
-        key: "notes",
-        render: (notes: string) => {
-          return (
-            <Popover content={content} title="Title" trigger="click">
-              <Button>Info</Button>
-            </Popover>
-          );
-        },
-      },
-      {
-        dataIndex: "status",
-        key: "state",
-        render: (status: string) => {
-          if (status === "NOT_STARTED") {
-            return <Badge status="warning" text="Not Started" />;
-          } else if (status === "IN_PROGRESS") {
-            return <Badge status="processing" text="In Progress" />;
-          } else if (status === "COMPLETED") {
-            return <Badge status="success" text="Completed" />;
-          }
-        },
-      },
-      {
-        key: "action",
-        render: () => (
-          <>
-            <div>
-              <span style={{ padding: "0 1rem" }}>
-                <EditOutlined />
-              </span>
-              <span style={{ padding: "0 1rem" }}>
-                <DeleteOutlined />
-              </span>
-            </div>
-          </>
-        ),
-      }
-    );
-  }
+    },
+    {
+      key: "action",
+      render: () => (
+        <>
+          <div>
+            <span style={{ padding: "0 1rem" }}>
+              <EditOutlined />
+            </span>
+            <span style={{ padding: "0 1rem" }}>
+              <DeleteOutlined />
+            </span>
+          </div>
+        </>
+      ),
+    }
+  );
 
   return <Table columns={columns} dataSource={data} pagination={false} />;
 };
