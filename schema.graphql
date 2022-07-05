@@ -88,6 +88,8 @@ type Functionality {
 type Map {
   projectId: String!
   id: String!
+  name: String
+  required: Boolean!
   status: Status!
   price: Int!
   notes: String
@@ -98,6 +100,8 @@ type Map {
 type PhotoGallery {
   projectId: String!
   id: String!
+  name: String
+  required: Boolean!
   status: Status!
   price: Int!
   notes: String
@@ -108,6 +112,8 @@ type PhotoGallery {
 type Blog {
   id: String!
   projecId: String!
+  name: String
+  required: Boolean!
   status: Status!
   price: Int!
   notes: String
@@ -174,6 +180,7 @@ input TimelineInput {
 input BlogInput {
   id: String!
   projectId: String!
+  required: Boolean!
   status: Status
   price: Int
   notes: String
@@ -186,6 +193,7 @@ input BlogInput {
 input PhotoGalleryInput {
   projectId: String!
   id: String!
+  required: Boolean!
   status: Status!
   price: Int
   notes: String
@@ -196,6 +204,7 @@ input PhotoGalleryInput {
 input MapInput {
   id: ID!
   projectId: ID!
+  required: Boolean!
   status: Status!
   price: Int
   notes: String

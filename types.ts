@@ -36,9 +36,11 @@ export type Blog = {
   commentSection?: Maybe<Scalars['Boolean']>;
   endDate?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   price: Scalars['Int'];
   projecId: Scalars['String'];
+  required: Scalars['Boolean'];
   socialSharing?: Maybe<Scalars['Boolean']>;
   startDate?: Maybe<Scalars['String']>;
   status: Status;
@@ -51,6 +53,7 @@ export type BlogInput = {
   notes?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   projectId: Scalars['String'];
+  required: Scalars['Boolean'];
   socialSharing?: InputMaybe<Scalars['Boolean']>;
   startDate?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Status>;
@@ -117,9 +120,11 @@ export type Map = {
   __typename?: 'Map';
   endDate?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   price: Scalars['Int'];
   projectId: Scalars['String'];
+  required: Scalars['Boolean'];
   startDate?: Maybe<Scalars['String']>;
   status: Status;
 };
@@ -130,6 +135,7 @@ export type MapInput = {
   notes?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   projectId: Scalars['ID'];
+  required: Scalars['Boolean'];
   startDate?: InputMaybe<Scalars['String']>;
   status: Status;
 };
@@ -220,9 +226,11 @@ export type PhotoGallery = {
   __typename?: 'PhotoGallery';
   endDate?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   price: Scalars['Int'];
   projectId: Scalars['String'];
+  required: Scalars['Boolean'];
   startDate?: Maybe<Scalars['String']>;
   status: Status;
 };
@@ -233,6 +241,7 @@ export type PhotoGalleryInput = {
   notes?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   projectId: Scalars['String'];
+  required: Scalars['Boolean'];
   startDate?: InputMaybe<Scalars['String']>;
   status: Status;
 };
@@ -483,9 +492,11 @@ export type BlogResolvers<ContextType = GraphQLContext, ParentType extends Resol
   commentSection?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   projecId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   socialSharing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
@@ -528,9 +539,11 @@ export type FunctionalityResolvers<ContextType = GraphQLContext, ParentType exte
 export type MapResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Map'] = ResolversParentTypes['Map']> = {
   endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   projectId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -555,9 +568,11 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
 export type PhotoGalleryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['PhotoGallery'] = ResolversParentTypes['PhotoGallery']> = {
   endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   projectId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -662,6 +677,8 @@ export const CustomerFragmentDoc = gql`
     image
     map {
       status
+      name
+      required
       startDate
       endDate
       price
@@ -669,6 +686,8 @@ export const CustomerFragmentDoc = gql`
     }
     photoGallery {
       status
+      name
+      required
       startDate
       endDate
       price
@@ -676,6 +695,8 @@ export const CustomerFragmentDoc = gql`
     }
     blog {
       status
+      name
+      required
       startDate
       endDate
       price
@@ -954,7 +975,7 @@ export type AddProjectFragment = { __typename?: 'Project', id: string, projectNa
 
 export type CardFragment = { __typename?: 'Card', projectName: string, status: string, image?: string | null, customerId: string };
 
-export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null };
+export type CustomerFragment = { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null };
 
 export type GetAllCardsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -964,14 +985,14 @@ export type GetAllCardsQuery = { __typename?: 'Query', getAllCards: Array<{ __ty
 export type GetAllCustomersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCustomersQuery = { __typename?: 'Query', getAllCustomers: Array<{ __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null }> };
+export type GetAllCustomersQuery = { __typename?: 'Query', getAllCustomers: Array<{ __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null }> };
 
 export type CustomerQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type CustomerQuery = { __typename?: 'Query', customer?: { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null } | null };
+export type CustomerQuery = { __typename?: 'Query', customer?: { __typename?: 'Customer', id: string, name?: string | null, email?: string | null, phone?: string | null, project?: { __typename?: 'Project', projectName?: string | null, status?: Status | null, startDate?: string | null, endDate?: string | null, websiteType?: WebsiteType | null, websiteCategory?: WebsiteCategory | null, image?: string | null, map?: { __typename?: 'Map', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, photoGallery?: { __typename?: 'PhotoGallery', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null } | null, blog?: { __typename?: 'Blog', status: Status, name?: string | null, required: boolean, startDate?: string | null, endDate?: string | null, price: number, notes?: string | null, commentSection?: boolean | null, socialSharing?: boolean | null } | null, timeline?: { __typename?: 'Timeline', id: string, projectId: string, clarify: Status, functionality: Status, layout: Status, tools: Status, implementFunctionality: Status, implementDesign: Status, review: Status, alterations: Status, testing: Status, deploy: Status } | null } | null, functionality?: { __typename?: 'Functionality', customerId: string, calender: boolean, chatPopup: boolean, contactForm: boolean, emailMarketing: boolean, productCatalog: boolean, productSearch: boolean, videoGallery: boolean, api: boolean, other?: string | null } | null } | null };
 
 export type TimelineQueryVariables = Exact<{
   id: Scalars['ID'];

@@ -77,6 +77,8 @@ model Timeline {
 model Map {
   id        String  @unique @default(uuid())
   status    Status
+  name      String? @default("Map")
+  required  Boolean @default(false)
   price     Int?
   notes     String?
   startDate String?
@@ -89,6 +91,8 @@ model Map {
 model PhotoGallery {
   id        String  @unique @default(uuid())
   status    Status?
+  name      String? @default("Photo Gallery")
+  required  Boolean @default(false)
   price     Int?
   notes     String?
   startDate String?
@@ -100,6 +104,8 @@ model PhotoGallery {
 model Blog {
   id             String   @unique @default(uuid())
   status         Status?
+  name           String?  @default("Blog")
+  required       Boolean  @default(false)
   price          Int?
   notes          String?
   startDate      String?

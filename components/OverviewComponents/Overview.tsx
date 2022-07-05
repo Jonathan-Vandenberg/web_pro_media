@@ -28,19 +28,21 @@ const Overview = ({ id }: Props) => {
       <Descriptions.Item label="Status" span={3}>
         <Badge status="processing" text="Online" />
       </Descriptions.Item>
-      <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
+      <Descriptions.Item label="Total Amount">$80.00</Descriptions.Item>
       <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
       <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
       <Descriptions.Item label="Config Info">
-        Data disk type: MongoDB
+        Hosting Provider: Hostinger
         <br />
-        Database version: 3.4
+        Domain Provider: NameCheap
         <br />
-        Package: dds.mongo.mid
+        Database: MySQL
+        <br />
+        Stack: Wordpress
+        <br />
+        Package: Basic
         <br />
         Storage space: 10 GB
-        <br />
-        Replication factor: 3
         <br />
         Region: East China 1<br />
       </Descriptions.Item>

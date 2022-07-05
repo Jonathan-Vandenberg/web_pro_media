@@ -13,6 +13,8 @@ fragment Customer on Customer {
     image
     map {
       status
+      name
+      required
       startDate
       endDate
       price
@@ -20,6 +22,8 @@ fragment Customer on Customer {
     }
     photoGallery {
       status
+      name
+      required
       startDate
       endDate
       price
@@ -27,6 +31,8 @@ fragment Customer on Customer {
     }
     blog {
       status
+      name
+      required
       startDate
       endDate
       price
