@@ -11,72 +11,164 @@ datasource db {
 }
 
 model Customer {
-  id      String   @id @default(uuid())
-  name    String?
-  email   String?
-  phone   String?
-  project Project?
-
+  id            String         @id @default(uuid())
+  name          String?
+  email         String?
+  phone         String?
+  timeline      Timeline?
   functionality Functionality?
+  project       Project?
 }
 
 model Project {
-  id          String    @unique @default(uuid())
-  projectName String?
-  status      Status?   @default(NOT_STARTED)
-  startDate   String?
-  endDate     String?
-  image       String?
-  map         Map?
-  timeline    Timeline?
-
+  id              String          @id @default(uuid())
+  projectName     String
+  status          Status          @default(NOT_STARTED)
+  startDate       String?
+  endDate         String?
+  image           String?
+  map             Map?
   photoGallery    PhotoGallery?
   blog            Blog?
-  websiteType     WebsiteType?
-  websiteCategory WebsiteCategory? @default(AUTOMOTIVE)
+  websiteType     WebsiteType     @default(ECOMMERCE_WEBSITE)
+  websiteCategory WebsiteCategory @default(AUTOMOTIVE)
 
   customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String   @unique
 }
 
 model Functionality {
-  id             String  @unique @default(uuid())
-  calender       Boolean @default(false)
-  chatPopup      Boolean @default(false)
-  contactForm    Boolean @default(false)
-  emailMarketing Boolean @default(false)
-  photoGallery   Boolean @default(false)
-  productCatalog Boolean @default(false)
-  productSearch  Boolean @default(false)
-  videoGallery   Boolean @default(false)
-  api            Boolean @default(false)
-  other          String?
+  id                    String  @unique @default(uuid())
+  calenderRequire       Boolean @default(false)
+  chatPopupRequire      Boolean @default(false)
+  contactFormRequire    Boolean @default(false)
+  emailMarketingRequire Boolean @default(false)
+  photoGalleryRequire   Boolean @default(false)
+  productCatalogRequire Boolean @default(false)
+  productSearchRequire  Boolean @default(false)
+  videoGalleryRequire   Boolean @default(false)
+  apiRequire            Boolean @default(false)
+  otherRequire          String?
+  mapRequire            Boolean
+  blogRequire           Boolean
+  blogCommentsRequire   Boolean
+  blogPostsRequire      Boolean
 
-  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  customerId String   @unique
+  customer          Customer @relation(fields: [customerIdRequire], references: [id], onDelete: Cascade)
+  customerIdRequire String   @unique
 
 }
 
 model Timeline {
-  id                     String @unique @default(uuid())
-  clarify                Status @default(NOT_STARTED)
-  functionality          Status @default(NOT_STARTED)
-  layout                 Status @default(NOT_STARTED)
-  tools                  Status @default(NOT_STARTED)
-  implementFunctionality Status @default(NOT_STARTED)
-  implementDesign        Status @default(NOT_STARTED)
-  review                 Status @default(NOT_STARTED)
-  alterations            Status @default(NOT_STARTED)
-  testing                Status @default(NOT_STARTED)
-  deploy                 Status @default(NOT_STARTED)
+  id                     String                  @id @default(uuid())
+  clarify                Clarify?
+  functionalityTimeline  FunctionalityTimeline?
+  layout                 Layout?
+  tools                  Tools?
+  implementFunctionality ImplementFunctionality?
+  implementDesign        ImplementDesign?
+  review                 Review?
+  alterations            Alterations?
+  testing                Testing?
+  deploy                 Deploy?
 
-  Project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId String  @unique
+  Customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String   @unique
+}
+
+model Clarify {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model FunctionalityTimeline {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Layout {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Tools {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model ImplementFunctionality {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model ImplementDesign {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Review {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Alterations {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Testing {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
+}
+
+model Deploy {
+  id     String @id @default(uuid())
+  name   String
+  status Status @default(NOT_STARTED)
+
+  timeline   Timeline @relation(fields: [timelineId], references: [id])
+  timelineId String   @unique
 }
 
 model Map {
-  id        String  @unique @default(uuid())
-  status    Status
+  id        String  @id @default(uuid())
+  status    Status? @default(NOT_STARTED)
   name      String? @default("Map")
   required  Boolean @default(false)
   price     Int?
@@ -89,8 +181,8 @@ model Map {
 }
 
 model PhotoGallery {
-  id        String  @unique @default(uuid())
-  status    Status?
+  id        String  @id @default(uuid())
+  status    Status? @default(NOT_STARTED)
   name      String? @default("Photo Gallery")
   required  Boolean @default(false)
   price     Int?
@@ -102,8 +194,8 @@ model PhotoGallery {
 }
 
 model Blog {
-  id             String   @unique @default(uuid())
-  status         Status?
+  id             String   @id @default(uuid())
+  status         Status?  @default(NOT_STARTED)
   name           String?  @default("Blog")
   required       Boolean  @default(false)
   price          Int?
@@ -115,6 +207,13 @@ model Blog {
 
   projectId String  @unique
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Card {
+  projectName String  @unique
+  status      String
+  image       String?
+  customerID  String?
 }
 
 enum Status {

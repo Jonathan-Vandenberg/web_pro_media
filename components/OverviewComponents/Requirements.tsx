@@ -1,15 +1,16 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Badge, Button, Popover, Table } from "antd";
 import "antd/dist/antd.css";
-import { ScalarLeafsRule } from "graphql";
-import React from "react";
 import { useCustomerQuery } from "../../types";
+import { useState } from "react";
 
 interface Props {
   id: string;
 }
 
 const Requirements = ({ id }: Props) => {
+  const [enableEditModal, setEnableEditModal] = useState(false);
+
   const {
     data: get,
     loading,
@@ -24,13 +25,6 @@ const Requirements = ({ id }: Props) => {
     return <p>Error: {error.message}</p>;
   }
 
-  // Notes
-  const content = (
-    <div>
-      <p>{get?.customer?.project?.map?.notes}</p>
-    </div>
-  );
-
   interface IRequirement {
     key: string | null | undefined;
     date: string | null | undefined;
@@ -42,6 +36,7 @@ const Requirements = ({ id }: Props) => {
   const data: IRequirement[] = [];
   const columns = [];
 
+  // Map
   if (get?.customer?.project?.map?.required) {
     data.push({
       key: get?.customer?.project?.map?.name,
@@ -52,6 +47,7 @@ const Requirements = ({ id }: Props) => {
     });
   }
 
+  // Blog
   if (get?.customer?.project?.blog?.required) {
     data.push({
       key: get?.customer?.project?.blog?.name,
@@ -62,6 +58,7 @@ const Requirements = ({ id }: Props) => {
     });
   }
 
+  // Photo Gallery
   if (get?.customer?.project?.photoGallery?.required) {
     data.push({
       key: get?.customer?.project?.photoGallery?.name,
@@ -89,7 +86,7 @@ const Requirements = ({ id }: Props) => {
       key: "notes",
       render: (notes: string) => {
         return (
-          <Popover content={content} title="Notes" trigger="click">
+          <Popover content={notes} title="Notes" trigger="click">
             <Button>Info</Button>
           </Popover>
         );
@@ -116,7 +113,7 @@ const Requirements = ({ id }: Props) => {
             <span
               style={{ padding: "0 1rem", cursor: "pointer" }}
               onClick={() => {
-                console.log("clicked");
+                setEnableEditModal(!enableEditModal);
               }}
             >
               <EditOutlined style={{ color: "grey" }} />
@@ -135,7 +132,11 @@ const Requirements = ({ id }: Props) => {
     }
   );
 
-  return <Table columns={columns} dataSource={data} pagination={false} />;
+  return (
+    <>
+      <Table columns={columns} dataSource={data} pagination={false} />
+    </>
+  );
 };
 
 export default Requirements;

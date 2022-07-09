@@ -1,0 +1,7 @@
+# import Functionality from "./FunctionalityFragment"
+
+query Functionality($id: ID!) {
+  functionality(id: $id) {
+    ...Functionality
+  }
+}

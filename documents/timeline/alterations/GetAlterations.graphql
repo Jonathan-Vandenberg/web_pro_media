@@ -1,0 +1,7 @@
+# import Alterations from "./AlterationsFragment"
+
+query Alterations($id: ID!) {
+  alterations(id: $id) {
+    ...Alterations
+  }
+}

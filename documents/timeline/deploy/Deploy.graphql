@@ -1,0 +1,6 @@
+fragment Deploy on Deploy {
+  id
+  timelineId
+  name
+  status
+}

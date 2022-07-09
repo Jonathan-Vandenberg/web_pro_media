@@ -1,0 +1,11 @@
+fragment Blog on Blog {
+  id
+  status
+  startDate
+  endDate
+  notes
+  required
+  price
+  commentSection
+  socialSharing
+}

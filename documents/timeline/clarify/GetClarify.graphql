@@ -1,0 +1,7 @@
+# import Clarify from './ClarifyFragment'
+
+query Clarify($id: ID!) {
+  clarify(id: $id) {
+    ...Clarify
+  }
+}

@@ -1,0 +1,7 @@
+# import FunctionalityTimeline from './FunctionalityTimelineFragment'
+
+query FunctionalityTimeline($id: ID!) {
+  functionalityTimeline(id: $id) {
+    ...FunctionalityTimeline
+  }
+}

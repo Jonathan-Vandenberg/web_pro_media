@@ -1,0 +1,8 @@
+fragment Map on Map {
+  status
+  startDate
+  endDate
+  notes
+  required
+  price
+}

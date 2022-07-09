@@ -1,0 +1,7 @@
+# import ImplementFunctionality from './ImplementFunctionalityFragment'
+
+query ImplementFunctionality($id: ID!) {
+  implementFunctionality(id: $id) {
+    ...ImplementFunctionality
+  }
+}

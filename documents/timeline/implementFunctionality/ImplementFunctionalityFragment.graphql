@@ -1,0 +1,6 @@
+fragment ImplementFunctionality on ImplementFunctionality {
+  id
+  timelineId
+  name
+  status
+}

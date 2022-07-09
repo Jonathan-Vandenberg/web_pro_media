@@ -1,0 +1,7 @@
+# import Tools from './ToolsFragment'
+
+mutation UpdateTools($input: ToolsInput!) {
+  updateTools(input: $input) {
+    ...Tools
+  }
+}

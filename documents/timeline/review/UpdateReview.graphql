@@ -1,0 +1,7 @@
+# import Review from "./ReviewFragment"
+
+mutation UpdateReview($input: ReviewInput!) {
+  updateReview(input: $input) {
+    ...Review
+  }
+}

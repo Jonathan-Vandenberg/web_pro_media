@@ -1,0 +1,6 @@
+fragment Review on Review {
+  id
+  timelineId
+  name
+  status
+}

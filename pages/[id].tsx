@@ -3,6 +3,7 @@ import { useState } from "react";
 import SideMenu from "../components/OverviewComponents/NavOverview";
 import Overview from "../components/OverviewComponents/Overview";
 import Requirements from "../components/OverviewComponents/Requirements";
+import TimelineComponent from "../components/Timeline/TImeline";
 import { useCustomerQuery } from "../types";
 
 const ProjectOverview = () => {
@@ -78,6 +79,9 @@ const ProjectOverview = () => {
           paddingTop: "3rem",
         }}
       ></div>
+      {enableTimeline && (
+        <TimelineComponent id={data?.customer?.timeline?.id!} />
+      )}
       {enableClientInfo && <Overview id={slug as string} />}
       {enableRequirements && <Requirements id={slug as string} />}
     </>

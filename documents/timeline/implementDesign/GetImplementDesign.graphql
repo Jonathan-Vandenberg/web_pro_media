@@ -1,0 +1,7 @@
+# import ImplementDesign from './ImplementDesignFragment'
+
+query ImplementDesign($id: ID!) {
+  implementDesign(id: $id) {
+    ...ImplementDesign
+  }
+}

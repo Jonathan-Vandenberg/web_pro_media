@@ -1,0 +1,7 @@
+# import Deploy from "./DeployFragment"
+
+query Deploy($id: ID!) {
+  deploy(id: $id) {
+    ...Deploy
+  }
+}

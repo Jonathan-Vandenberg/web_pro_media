@@ -1,0 +1,22 @@
+# import Functionality from "./FunctionalityFragment.graphql"
+
+mutation AddFunctionality($input: FunctionalityInput!) {
+  addFunctionality(input: $input) {
+    id
+    customerIdRequire
+    calenderRequire
+    chatPopupRequire
+    contactFormRequire
+    emailMarketingRequire
+    photoGalleryRequire
+    productCatalogRequire
+    productSearchRequire
+    videoGalleryRequire
+    apiRequire
+    otherRequire
+    mapRequire
+    blogRequire
+    blogCommentsRequire
+    blogPostsRequire
+  }
+}

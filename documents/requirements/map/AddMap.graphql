@@ -1,0 +1,7 @@
+# import Map from './MapFragment'
+
+mutation AddMap($input: MapInput!) {
+  addMap(input: $input) {
+    ...Map
+  }
+}

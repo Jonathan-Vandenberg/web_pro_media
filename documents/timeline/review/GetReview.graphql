@@ -1,0 +1,7 @@
+# import Review from './ReviewFragment'
+
+query Review($id: ID!) {
+  review(id: $id) {
+    ...Review
+  }
+}

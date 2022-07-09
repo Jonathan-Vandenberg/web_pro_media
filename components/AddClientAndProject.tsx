@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, message, Steps } from "antd";
 import AddClientForm from "./AddClientForm";
 import AddProjectForm from "./AddProjectForm";
+import AddRequirementsForm from "./AddRequirementsForm";
 
 const { Step } = Steps;
 
@@ -16,7 +17,7 @@ const steps = [
   },
   {
     title: "Add Options",
-    content: <AddProjectForm />,
+    content: <AddRequirementsForm />,
   },
 ];
 

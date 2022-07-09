@@ -1,0 +1,8 @@
+fragment PhotoGallery on PhotoGallery {
+  status
+  startDate
+  endDate
+  notes
+  required
+  price
+}

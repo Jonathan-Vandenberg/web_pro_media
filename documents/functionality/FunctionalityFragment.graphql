@@ -1,0 +1,19 @@
+fragment Functionality on Functionality {
+  id
+  customerIdRequire
+  calenderRequire
+  chatPopupRequire
+  contactFormRequire
+  emailMarketingRequire
+  photoGalleryRequire
+  photoGalleryRequire
+  productCatalogRequire
+  productSearchRequire
+  videoGalleryRequire
+  apiRequire
+  otherRequire
+  mapRequire
+  blogRequire
+  blogCommentsRequire
+  blogPostsRequire
+}

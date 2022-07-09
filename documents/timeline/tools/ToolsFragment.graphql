@@ -1,0 +1,6 @@
+fragment Tools on Tools {
+  id
+  timelineId
+  name
+  status
+}

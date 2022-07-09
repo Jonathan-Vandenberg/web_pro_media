@@ -1,0 +1,6 @@
+fragment Alterations on Alterations {
+  id
+  timelineId
+  name
+  status
+}

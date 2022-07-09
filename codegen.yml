@@ -15,6 +15,16 @@ generates:
         PhotoGallery: "@prisma/client#PhotoGallery"
         Blog: "@prisma/client#Blog"
         Timeline: "@prisma/client#Timeline"
+        Clarify: "@prisma/client#Clarify"
+        FunctionalityTimeline: "@prisma/client#FunctionalityTimeline"
+        Layout: "@prisma/client#Layout"
+        Tools: "@prisma/client#Tools"
+        ImplementDesign: "@prisma/client#ImplementDesign"
+        ImplementFunctionality: "@prisma/client#ImplementFunctionality"
+        Review: "@prisma/client#Review"
+        Alterations: "@prisma/client#Alterations"
+        Testing: "@prisma/client#Testing"
+        Deploy: "@prisma/client#Deploy"
       contextType: ./pages/api/index#GraphQLContext
     plugins:
       - "typescript"

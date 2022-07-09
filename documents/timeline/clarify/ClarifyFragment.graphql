@@ -1,0 +1,6 @@
+fragment Clarify on Clarify {
+  id
+  timelineId
+  name
+  status
+}

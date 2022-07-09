@@ -1,0 +1,6 @@
+fragment FunctionalityTimeline on FunctionalityTimeline {
+  id
+  timelineId
+  name
+  status
+}

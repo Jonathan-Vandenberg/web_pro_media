@@ -1,0 +1,7 @@
+# import Clarify from './ClarifyFragment';
+
+mutation UpdateClarify($input: ClarifyInput!) {
+  updateClarify(input: $input) {
+    ...Clarify
+  }
+}

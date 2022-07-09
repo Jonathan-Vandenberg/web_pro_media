@@ -1,0 +1,7 @@
+# import Alterations from './AlterationsFragment';
+
+mutation UpdateAlterations($input: AlterationsInput!) {
+  updateAlterations(input: $input) {
+    ...Alterations
+  }
+}

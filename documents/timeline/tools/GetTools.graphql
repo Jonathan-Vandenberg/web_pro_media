@@ -1,0 +1,7 @@
+# import Tools from './ToolsFragment'
+
+query Tools($id: ID!) {
+  tools(id: $id) {
+    ...Tools
+  }
+}

@@ -1,0 +1,7 @@
+# import Blog from './BlogFragment'
+
+mutation AddBlog($input: BlogInput!) {
+  addBlog(input: $input) {
+    ...Blog
+  }
+}

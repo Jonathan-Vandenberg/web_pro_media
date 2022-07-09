@@ -1,0 +1,7 @@
+# import Testing from "./TestingFragment.graphql"
+
+mutation UpdateTesting($input: TestingInput!) {
+  updateTesting(input: $input) {
+    ...Testing
+  }
+}

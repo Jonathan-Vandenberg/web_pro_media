@@ -1,0 +1,7 @@
+# import Testing from './TestingFragment'
+
+query Testing($id: ID!) {
+  testing(id: $id) {
+    ...Testing
+  }
+}

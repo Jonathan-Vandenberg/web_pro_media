@@ -1,0 +1,7 @@
+# import Layout from "./LayoutFragment"
+
+mutation UpdateLayout($input: LayoutInput!) {
+  updateLayout(input: $input) {
+    ...Layout
+  }
+}

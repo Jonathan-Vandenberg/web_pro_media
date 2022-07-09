@@ -1,0 +1,10 @@
+# import Deploy from "./DeployFragment"
+
+mutation UpdateDeploy($input: DeployInput!) {
+  updateDeploy(input: $input) {
+    id
+    name
+    timelineId
+    status
+  }
+}

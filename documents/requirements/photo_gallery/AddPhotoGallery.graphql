@@ -1,0 +1,7 @@
+# import PhotoGallery from './PhotoGalleryFragment';
+
+mutation AddPhotoGallery($input: PhotoGalleryInput!) {
+  addPhotoGallery(input: $input) {
+    ...PhotoGallery
+  }
+}

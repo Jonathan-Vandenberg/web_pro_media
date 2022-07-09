@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import customerIdReducer from '../slices/counter-slice'
+import customerIdReducer from '../slices/customerIdSlice'
+import projectIdReducer from '../slices/projectIdSlice'
 
 const store = configureStore({
   reducer: {
-    customerId: customerIdReducer
+    customerId: customerIdReducer,
+    projectId: projectIdReducer,
   }
 })
 

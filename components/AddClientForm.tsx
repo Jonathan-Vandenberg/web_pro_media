@@ -2,13 +2,8 @@ import { Button, Form, Input } from "antd";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useAppDispatch } from "../Redux hooks/hooks";
-import { customerId } from "../slices/counter-slice";
+import { customerId } from "../slices/customerIdSlice";
 import { useAddCustomerMutation } from "../types";
-
-interface props {
-  /**Submits the form */
-  onClick: () => void;
-}
 
 const AddClientForm = () => {
   const [name, setName] = useState("");
@@ -33,6 +28,7 @@ const AddClientForm = () => {
           },
         },
       });
+
       dispatch(customerId(id));
 
       setName("");

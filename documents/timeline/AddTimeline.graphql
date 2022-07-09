@@ -1,0 +1,7 @@
+# import Timeline from "./TimelineFragment"
+
+mutation AddTimeline($input: TimelineInput!) {
+  addTimeline(input: $input) {
+    ...Timeline
+  }
+}

@@ -1,0 +1,64 @@
+fragment Timeline on Timeline {
+  id
+  customerId
+  clarify {
+    id
+    timelineId
+    name
+    status
+  }
+  functionalityTimeline {
+    id
+    timelineId
+    name
+    status
+  }
+  layout {
+    id
+    timelineId
+    name
+    status
+  }
+  tools {
+    id
+    timelineId
+    name
+    status
+  }
+  implementFunctionality {
+    id
+    timelineId
+    name
+    status
+  }
+  implementDesign {
+    id
+    timelineId
+    name
+    status
+  }
+  review {
+    id
+    timelineId
+    name
+    status
+  }
+  alterations {
+    id
+    timelineId
+    name
+    status
+  }
+  testing {
+    id
+    timelineId
+    name
+    status
+  }
+  deploy {
+    id
+    timelineId
+    name
+    status
+  }
+}

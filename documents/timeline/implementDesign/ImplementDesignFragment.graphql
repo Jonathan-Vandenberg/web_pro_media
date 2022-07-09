@@ -1,0 +1,6 @@
+fragment ImplementDesign on ImplementDesign {
+  id
+  timelineId
+  name
+  status
+}

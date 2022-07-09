@@ -1,20 +1,29 @@
 import { Button, Form, Input, Select } from "antd";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { useAppSelector } from "../Redux hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../Redux hooks/hooks";
+import { projectId } from "../slices/projectIdSlice";
 import type { WebsiteCategory, WebsiteType } from "../types";
-import { AddProjectDocument, useAddProjectMutation } from "../types";
+import { useAddProjectMutation, useAddTimelineMutation } from "../types";
 
 const AddProjectForm = () => {
   const [projectName, setProjectName] = useState("");
   const [websiteType, setWebsiteType] = useState("");
   const [websiteCategory, setWebsiteCategory] = useState("");
 
+  const dispatch = useAppDispatch();
+
   const { value: customerId } = useAppSelector((state) => state.customerId);
 
-  const [addProject, { loading }] = useAddProjectMutation({
-    refetchQueries: [AddProjectDocument],
-  });
+  const id = uuid();
+  const timelineId = uuid();
+
+  const [addProject] = useAddProjectMutation();
+  const [addTimeline, { loading }] = useAddTimelineMutation();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const submitProject = () => {
     if (projectName !== "" && websiteType !== "" && websiteCategory !== "") {
@@ -23,12 +32,23 @@ const AddProjectForm = () => {
           input: {
             projectName: projectName,
             customerId: customerId,
-            id: uuid(),
+            id: id,
             websiteType: websiteType as WebsiteType,
             websiteCategory: websiteCategory as WebsiteCategory,
           },
         },
       });
+
+      addTimeline({
+        variables: {
+          input: {
+            customerId: customerId,
+            id: timelineId,
+          },
+        },
+      });
+
+      dispatch(projectId(id));
 
       setProjectName("");
       setWebsiteType("");

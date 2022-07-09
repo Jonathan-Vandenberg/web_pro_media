@@ -1,0 +1,7 @@
+# import FunctionalityTimeline from './FunctionalityTimelineFragment';
+
+mutation UpdateFunctionalityTimeline($input: FunctionalityTimelineInput!) {
+  updateFunctionalityTimeline(input: $input) {
+    ...FunctionalityTimeline
+  }
+}

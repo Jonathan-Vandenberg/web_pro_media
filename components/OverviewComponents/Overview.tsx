@@ -13,7 +13,12 @@ const Overview = ({ id }: Props) => {
     },
   });
   return (
-    <Descriptions title="User Info" layout="vertical" bordered>
+    <Descriptions
+      title="User Info"
+      layout="vertical"
+      bordered
+      style={{ width: "80vw", margin: "auto" }}
+    >
       <Descriptions.Item label="Product">
         {data?.customer?.project?.projectName}
       </Descriptions.Item>

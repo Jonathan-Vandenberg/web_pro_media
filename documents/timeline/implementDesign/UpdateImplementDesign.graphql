@@ -1,0 +1,7 @@
+# import ImplementDesign from './ImplementDesignFragment';
+
+mutation UpdateImplementDesign($input: ImplementDesignInput!) {
+  updateImplementDesign(input: $input) {
+    ...ImplementDesign
+  }
+}

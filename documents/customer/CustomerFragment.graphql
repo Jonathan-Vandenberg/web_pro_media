@@ -1,0 +1,125 @@
+fragment Customer on Customer {
+  id
+  name
+  email
+  phone
+  timeline {
+    id
+    customerId
+    clarify {
+      id
+      timelineId
+      name
+      status
+    }
+    functionalityTimeline {
+      id
+      timelineId
+      name
+      status
+    }
+    layout {
+      id
+      timelineId
+      name
+      status
+    }
+    tools {
+      id
+      timelineId
+      name
+      status
+    }
+    implementFunctionality {
+      id
+      timelineId
+      name
+      status
+    }
+    implementDesign {
+      id
+      timelineId
+      name
+      status
+    }
+    review {
+      id
+      timelineId
+      name
+      status
+    }
+    alterations {
+      id
+      timelineId
+      name
+      status
+    }
+    testing {
+      id
+      timelineId
+      name
+      status
+    }
+    deploy {
+      id
+      timelineId
+      name
+      status
+    }
+  }
+  project {
+    projectName
+    status
+    startDate
+    endDate
+    websiteType
+    websiteCategory
+    image
+    map {
+      status
+      name
+      required
+      startDate
+      endDate
+      price
+      notes
+    }
+    photoGallery {
+      status
+      name
+      required
+      startDate
+      endDate
+      price
+      notes
+    }
+    blog {
+      status
+      name
+      required
+      startDate
+      endDate
+      price
+      notes
+      commentSection
+      socialSharing
+    }
+  }
+  functionality {
+    customerIdRequire
+    calenderRequire
+    chatPopupRequire
+    contactFormRequire
+    emailMarketingRequire
+    productCatalogRequire
+    productSearchRequire
+    videoGalleryRequire
+    apiRequire
+    otherRequire
+    blogRequire
+    blogCommentsRequire
+    blogPostsRequire
+    photoGalleryRequire
+    mapRequire
+  }
+}

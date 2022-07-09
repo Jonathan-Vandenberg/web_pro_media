@@ -6,22 +6,55 @@ type Query {
   getPhotoGalleries: [PhotoGallery!]!
   getProject(id: ID!): Project
   timeline(id: ID!): Timeline
+  clarify(id: ID!): Clarify
+  functionalityTimeline(id: ID!): FunctionalityTimeline
+  layout(id: ID!): Layout
+  tools(id: ID!): Tools
+  implementFunctionality(id: ID!): ImplementFunctionality
+  implementDesign(id: ID!): ImplementDesign
+  review(id: ID!): Review
+  alterations(id: ID!): Alterations
+  testing(id: ID!): Testing
+  deploy(id: ID!): Deploy
+  functionality(id: ID!): Functionality
 }
 
 type Mutation {
   createCustomer(input: CreateCustomerInput!): Customer
   updateCustomer(input: UpdateCustomerInput!): Customer
   deleteCustomer(id: ID!): Customer
+
   addProject(input: AddProjectInput!): Project
   deleteProject(id: ID!): Project
-  addFunctionality(input: FunctionalityInput!): Customer
+
+  addFunctionality(input: FunctionalityInput!): Functionality
+
   addMap(input: MapInput!): Map
   deleteMap(id: ID!): Map
+
   addPhotoGallery(input: PhotoGalleryInput!): PhotoGallery
   deletePhotoGallery(id: ID!): PhotoGallery
+
   addBlog(input: BlogInput!): Blog
   deleteBlog(id: ID!): Blog
+  updateBlog(input: BlogInput!): Blog
+
   addTimeline(input: TimelineInput!): Timeline
+
+  updateClarify(input: ClarifyInput!): Clarify
+  updateFunctionalityTimeline(
+    input: FunctionalityTimelineInput!
+  ): FunctionalityTimeline
+  updateLayout(input: LayoutInput!): Layout
+  updateTools(input: ToolsInput!): Tools
+  updateImplementFunctionality(
+    input: ImplementFunctionalityInput!
+  ): ImplementFunctionality
+  updateImplementDesign(input: ImplementDesignInput!): ImplementDesign
+  updateReview(input: ReviewInput!): Review
+  updateAlterations(input: AlterationsInput!): Alterations
+  updateTesting(input: TestingInput!): Testing
+  updateDeploy(input: DeployInput!): Deploy
 }
 
 type Customer {
@@ -31,91 +64,166 @@ type Customer {
   phone: String
   project: Project
   functionality: Functionality
+  timeline: Timeline
 }
 
 type Project {
   id: ID!
-  projectName: String
-  customerId: ID
-  status: Status
+  projectName: String!
+  customerId: ID!
+  status: Status!
   startDate: String
   endDate: String
-  websiteType: WebsiteType
-  websiteCategory: WebsiteCategory
+  websiteType: WebsiteType!
+  websiteCategory: WebsiteCategory!
   image: String
   map: Map
   photoGallery: PhotoGallery
   blog: Blog
-  timeline: Timeline
 }
 
 type Timeline {
+  id: String!
+  customerId: String!
+  clarify: Clarify
+  functionalityTimeline: FunctionalityTimeline
+  layout: Layout
+  tools: Tools
+  implementFunctionality: ImplementFunctionality
+  implementDesign: ImplementDesign
+  review: Review
+  alterations: Alterations
+  testing: Testing
+  deploy: Deploy
+}
+
+type Clarify {
   id: ID!
-  projectId: ID!
-  clarify: Status!
-  functionality: Status!
-  layout: Status!
-  tools: Status!
-  implementFunctionality: Status!
-  implementDesign: Status!
-  review: Status!
-  alterations: Status!
-  testing: Status!
-  deploy: Status!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type FunctionalityTimeline {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Layout {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Tools {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type ImplementFunctionality {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type ImplementDesign {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Review {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Alterations {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Testing {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
+}
+
+type Deploy {
+  id: ID!
+  timelineId: ID!
+  name: String!
+  status: Status!
 }
 
 type Card {
   projectName: String!
   status: String!
   image: String
-  customerId: ID!
+  customerId: ID
 }
 
 type Functionality {
   id: ID!
-  customerId: ID!
-  calender: Boolean!
-  chatPopup: Boolean!
-  contactForm: Boolean!
-  emailMarketing: Boolean!
-  productCatalog: Boolean!
-  productSearch: Boolean!
-  videoGallery: Boolean!
-  api: Boolean!
-  other: String
+  customerIdRequire: ID!
+  photoGalleryRequire: Boolean
+  calenderRequire: Boolean!
+  chatPopupRequire: Boolean!
+  contactFormRequire: Boolean!
+  emailMarketingRequire: Boolean!
+  productCatalogRequire: Boolean!
+  productSearchRequire: Boolean!
+  videoGalleryRequire: Boolean!
+  blogRequire: Boolean!
+  blogCommentsRequire: Boolean!
+  blogPostsRequire: Boolean!
+  mapRequire: Boolean!
+  apiRequire: Boolean!
+  otherRequire: String
 }
 
 type Map {
-  projectId: String!
-  id: String!
-  name: String
+  projectId: ID!
+  id: ID
   required: Boolean!
-  status: Status!
-  price: Int!
+  name: String
+  status: Status
+  price: Int
   notes: String
   startDate: String
   endDate: String
 }
 
 type PhotoGallery {
-  projectId: String!
-  id: String!
-  name: String
+  projectId: ID!
+  id: ID
   required: Boolean!
-  status: Status!
-  price: Int!
+  name: String
+  status: Status
+  price: Int
   notes: String
   startDate: String
   endDate: String
 }
 
 type Blog {
-  id: String!
-  projecId: String!
-  name: String
+  id: ID
+  projecId: ID!
   required: Boolean!
-  status: Status!
-  price: Int!
+  name: String
+  status: Status
+  price: Int
   notes: String
   startDate: String
   endDate: String
@@ -163,23 +271,83 @@ enum WebsiteCategory {
 }
 
 input TimelineInput {
-  id: ID!
-  projectId: ID!
-  clarify: Status!
-  functionality: Status!
-  layout: Status!
-  tools: Status!
-  implementFunctionality: Status!
-  implementDesign: Status!
-  review: Status!
-  alterations: Status!
-  testing: Status!
-  deploy: Status!
+  id: String!
+  customerId: String!
+}
+
+input ClarifyInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input FunctionalityTimelineInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input LayoutInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input ToolsInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input ImplementFunctionalityInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input ImplementDesignInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input ReviewInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input AlterationsInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input TestingInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
+}
+
+input DeployInput {
+  id: ID
+  timelineId: ID!
+  name: String!
+  status: Status
 }
 
 input BlogInput {
-  id: String!
   projectId: String!
+  id: String!
   required: Boolean!
   status: Status
   price: Int
@@ -194,7 +362,7 @@ input PhotoGalleryInput {
   projectId: String!
   id: String!
   required: Boolean!
-  status: Status!
+  status: Status
   price: Int
   notes: String
   startDate: String
@@ -202,10 +370,10 @@ input PhotoGalleryInput {
 }
 
 input MapInput {
-  id: ID!
+  id: String!
   projectId: ID!
   required: Boolean!
-  status: Status!
+  status: Status
   price: Int
   notes: String
   startDate: String
@@ -214,19 +382,21 @@ input MapInput {
 
 input FunctionalityInput {
   id: String!
-  customerId: String!
-  calender: Boolean!
-  chatPopup: Boolean!
-  contactForm: Boolean!
-  emailMarketing: Boolean!
-  productCatalog: Boolean!
-  productSearch: Boolean!
-  videoGallery: Boolean!
-  api: Boolean!
-  blog: Boolean!
-  blogComments: Boolean!
-  blogPosts: Boolean!
-  other: String
+  customerIdRequire: String!
+  calenderRequire: Boolean!
+  chatPopupRequire: Boolean!
+  contactFormRequire: Boolean!
+  emailMarketingRequire: Boolean!
+  productCatalogRequire: Boolean!
+  productSearchRequire: Boolean!
+  videoGalleryRequire: Boolean!
+  apiRequire: Boolean!
+  blogRequire: Boolean!
+  photoGalleryRequire: Boolean!
+  mapRequire: Boolean!
+  blogCommentsRequire: Boolean!
+  blogPostsRequire: Boolean!
+  otherRequire: String
 }
 
 input UpdateCustomerInput {
@@ -244,7 +414,7 @@ input CreateCustomerInput {
 }
 
 input AddProjectInput {
-  projectName: String
+  projectName: String!
   customerId: String!
   id: String!
   status: Status
